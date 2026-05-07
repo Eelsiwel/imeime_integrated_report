@@ -3,134 +3,1561 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>imeime 廣告顧問整合分析報告</title>
+<title>imeime 廣告顧問分析報告 · 整合總覽</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap');
+
   :root {
-    --ink:#1a1814; --cream:#f7f4ef; --cream-dark:#ede9e2; --border:#d8d3ca;
-    --amber:#d4900a; --muted:#77716a; --card:#fff;
-    --font-display: Georgia, 'Times New Roman', serif;
-    --font-body: 'Helvetica Neue', Arial, 'Noto Sans TC', sans-serif;
+    --ink: #1a1814;
+    --ink-muted: #5a5750;
+    --ink-faint: #9a9690;
+    --cream: #f7f4ef;
+    --cream-dark: #ede9e2;
+    --border: #d8d3ca;
+    --teal: #1a6b5c;
+    --teal-light: #e1f0ec;
+    --teal-mid: #3d9e87;
+    --coral: #c44b2b;
+    --coral-light: #faeee9;
+    --coral-mid: #e07a5f;
+    --amber: #8b5e0a;
+    --amber-light: #fdf3e0;
+    --amber-mid: #d4900a;
+    --blue: #2b4fa8;
+    --blue-light: #e8edf8;
+    --blue-mid: #5b7fd4;
+    --purple: #5b3fa8;
+    --purple-light: #eeedf8;
+    --gray: #5a5750;
+    --gray-light: #f0ece6;
+    --font-display: 'Playfair Display', 'Georgia', serif;
+    --font-body: 'DM Sans', 'Helvetica Neue', sans-serif;
   }
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { margin:0; background:var(--cream); color:var(--ink); font-family:var(--font-body); }
-  .shell-header {
-    background:var(--ink); color:var(--cream); padding:56px 60px 42px; border-bottom:3px solid var(--amber);
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
   }
-  .shell-label { font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--amber); margin-bottom:14px; }
-  .shell-title { font-family:var(--font-display); font-weight:400; font-size:42px; line-height:1.15; margin:0 0 12px; }
-  .shell-sub { color:#aaa39a; font-size:14px; line-height:1.8; max-width:820px; }
-  .shell-meta { display:flex; flex-wrap:wrap; gap:28px; margin-top:28px; padding-top:22px; border-top:1px solid #34322f; }
-  .shell-meta div { color:#8f8982; font-size:12px; }
-  .shell-meta strong { display:block; color:var(--cream); font-size:14px; font-weight:500; margin-bottom:2px; }
-  .toc {
-    position: sticky; top: 0; z-index: 50; background: rgba(26,24,20,.96); backdrop-filter: blur(8px);
-    border-bottom:1px solid #302d29; padding:0 60px; display:flex; gap:0; overflow-x:auto;
+
+  /* ── GLOBAL HEADER ── */
+  .site-header {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 40px 60px 36px;
+    border-bottom: 3px solid var(--amber-mid);
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
-  .toc a { color:#8d867d; text-decoration:none; padding:15px 22px; font-size:12px; letter-spacing:.1em; text-transform:uppercase; white-space:nowrap; border-bottom:2px solid transparent; }
-  .toc a:hover { color:var(--cream); }
-  .toc a.active { color:var(--amber); border-bottom-color:var(--amber); }
-  .report-wrap { padding:38px 60px 72px; }
-  .merge-note {
-    background:var(--cream-dark); border:1px solid var(--border); border-radius:10px; padding:16px 20px;
-    font-size:13px; color:var(--muted); line-height:1.8; margin-bottom:28px; max-width:1100px;
+  .site-header-inner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
   }
-  .section-shell { margin:0 0 36px; scroll-margin-top:64px; }
-  .section-head { margin:0 0 14px; display:flex; align-items:flex-end; justify-content:space-between; gap:20px; }
-  .section-kicker { font-size:10px; letter-spacing:.24em; text-transform:uppercase; color:#a29b92; margin-bottom:5px; }
-  .section-title { font-family:var(--font-display); font-size:25px; font-weight:400; margin:0; }
-  .section-desc { color:var(--muted); font-size:13px; margin-top:5px; }
-  .open-source { font-size:11px; color:#9a948d; }
-  .frame-card { background:var(--card); border:1px solid var(--border); border-radius:12px; overflow:hidden; box-shadow:0 8px 28px rgba(26,24,20,.06); }
-  iframe.report-frame { width:100%; border:0; display:block; min-height:720px; background:var(--cream); }
-  .footer { background:var(--ink); color:#777; padding:24px 60px; font-size:11px; display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; }
-  .footer strong { color:var(--amber); }
-  @media (max-width: 820px) {
-    .shell-header, .toc, .report-wrap, .footer { padding-left:22px; padding-right:22px; }
-    .shell-title { font-size:32px; }
-    .section-head { display:block; }
-    iframe.report-frame { min-height:640px; }
+  .site-header-brand {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber-mid);
+    margin-bottom: 6px;
+    font-weight: 500;
   }
-  @media print {
-    .toc { position:static; }
-    .frame-card { box-shadow:none; break-inside:avoid; }
-    iframe.report-frame { min-height:900px; }
+  .site-header-title {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.2;
   }
+  .site-header-sub {
+    font-size: 12px;
+    color: #a09a90;
+    margin-top: 4px;
+    letter-spacing: 0.03em;
+  }
+  .site-header-meta {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    align-items: flex-end;
+  }
+  .hm-item { font-size: 11px; color: #888; }
+  .hm-item strong { color: var(--cream); font-weight: 500; display: block; font-size: 13px; margin-bottom: 1px; }
+
+  /* ── TOP NAV ── */
+  .top-nav {
+    background: var(--ink);
+    border-bottom: 1px solid #2a2a28;
+    padding: 0 60px;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+  }
+  .top-nav::-webkit-scrollbar { display: none; }
+  .tn-tab {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: #777;
+    padding: 14px 22px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+    user-select: none;
+  }
+  .tn-tab:hover { color: #ccc; }
+  .tn-tab.active { color: var(--amber-mid); border-bottom-color: var(--amber-mid); }
+  .tn-num {
+    font-size: 10px;
+    opacity: 0.5;
+    margin-right: 6px;
+    font-family: monospace;
+  }
+
+  /* ── PAGE SECTIONS ── */
+  .page-section { display: none; }
+  .page-section.active { display: block; }
+
+  /* ── INNER CONTENT AREAS ── */
+  .page-content {
+    padding: 48px 60px 80px;
+    max-width: 1160px;
+  }
+
+  /* ── SECTION HEADERS ── */
+  .sec-label {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 6px;
+    margin-top: 48px;
+  }
+  .sec-label:first-child { margin-top: 0; }
+  .sec-title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 6px;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+  .section-desc {
+    font-size: 12px;
+    color: var(--ink-muted);
+    margin-bottom: 24px;
+    line-height: 1.7;
+  }
+
+  /* ── KPI CARDS ── */
+  .kpi-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-bottom: 16px; }
+  .kpi-grid-3 { grid-template-columns: repeat(3,1fr); }
+  .kpi-grid-2 { grid-template-columns: repeat(2,1fr); }
+  .kpi-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 22px;
+    position: relative;
+    overflow: hidden;
+  }
+  .kpi-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .kpi-card.teal::after { background: var(--teal-mid); }
+  .kpi-card.coral::after { background: var(--coral-mid); }
+  .kpi-card.amber::after { background: var(--amber-mid); }
+  .kpi-card.blue::after { background: var(--blue-mid); }
+  .kpi-card.purple::after { background: #7c6fcd; }
+  .kpi-card.gray::after { background: var(--ink-faint); }
+  .kpi-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 8px; font-weight: 500; }
+  .kpi-value { font-family: var(--font-display); font-size: 28px; font-weight: 400; line-height: 1; margin-bottom: 4px; color: var(--ink); }
+  .kpi-value.lg { font-size: 22px; }
+  .kpi-sub { font-size: 11px; color: var(--ink-faint); }
+  .kpi-badge { display: inline-block; margin-top: 8px; font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 500; }
+  .kpi-badge.good { background: var(--teal-light); color: var(--teal); }
+  .kpi-badge.warn { background: var(--amber-light); color: var(--amber); }
+  .kpi-badge.alert { background: var(--coral-light); color: var(--coral); }
+
+  /* ── CHART WRAP ── */
+  .chart-wrap { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 24px 28px; }
+  .chart-title { font-size: 13px; font-weight: 500; margin-bottom: 20px; color: var(--ink); }
+
+  /* ── BAR ROWS ── */
+  .bar-row { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+  .bar-label { width: 56px; font-size: 11px; color: var(--ink-muted); flex-shrink: 0; text-align: right; }
+  .bar-track { flex: 1; height: 22px; background: var(--cream-dark); border-radius: 4px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 10px; }
+  .bar-fill span { font-size: 10px; font-weight: 500; white-space: nowrap; }
+  .bar-meta { width: 110px; font-size: 10px; color: var(--ink-faint); flex-shrink: 0; }
+
+  /* ── PERFORMANCE TABLE ── */
+  .perf-table { width: 100%; border-collapse: collapse; }
+  .perf-table th { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); font-weight: 500; padding: 10px 14px; border-bottom: 1px solid var(--border); text-align: left; }
+  .perf-table th:not(:first-child) { text-align: right; }
+  .perf-table td { padding: 12px 14px; font-size: 12px; color: var(--ink-muted); border-bottom: 1px solid var(--cream-dark); }
+  .perf-table td:first-child { color: var(--ink); font-weight: 500; font-size: 13px; }
+  .perf-table td:not(:first-child) { text-align: right; }
+  .perf-table tr:last-child td { border-bottom: none; }
+  .perf-table tr:hover td { background: var(--cream); }
+  .roas-pill { display: inline-block; padding: 2px 9px; border-radius: 10px; font-size: 11px; font-weight: 500; }
+  .roas-high { background: var(--teal-light); color: var(--teal); }
+  .roas-mid { background: var(--amber-light); color: var(--amber); }
+  .roas-low { background: var(--coral-light); color: var(--coral); }
+
+  /* ── LAYOUTS ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+
+  /* ── ANALYSIS WRAP ── */
+  .analysis-wrap { background: white; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .analysis-header { background: var(--ink); color: var(--cream); padding: 14px 24px; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 500; }
+  .analysis-body { padding: 28px 28px 24px; }
+  .insight-item { padding: 16px 0; border-bottom: 1px solid var(--cream-dark); display: grid; grid-template-columns: 140px 1fr; gap: 20px; }
+  .insight-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .insight-tag { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; padding-top: 2px; }
+  .insight-tag.strength { color: var(--teal); }
+  .insight-tag.risk { color: var(--coral); }
+  .insight-tag.opp { color: var(--blue); }
+  .insight-content { font-size: 12px; color: var(--ink-muted); line-height: 1.7; }
+  .insight-content strong { color: var(--ink); font-weight: 600; }
+
+  /* ── DISCLAIMER ── */
+  .disclaimer { background: var(--cream-dark); border: 1px solid var(--border); border-radius: 6px; padding: 14px 18px; font-size: 11px; color: var(--ink-muted); line-height: 1.7; }
+
+  /* ── ACTION BOX ── */
+  .action-box { background: var(--ink); border-radius: 8px; padding: 24px 28px; color: var(--cream); margin-bottom: 0; }
+  .ab-title { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #888; margin-bottom: 16px; }
+  .ab-item { display: flex; gap: 16px; padding: 12px 0; border-bottom: 1px solid #2a2a28; align-items: flex-start; }
+  .ab-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .ab-num { font-family: var(--font-display); font-size: 24px; color: var(--amber-mid); flex-shrink: 0; line-height: 1; }
+  .ab-content { font-size: 12px; color: #aaa; line-height: 1.7; }
+  .ab-content strong { color: var(--cream); display: block; margin-bottom: 2px; font-weight: 500; }
+
+  /* ── LEGEND ── */
+  .legend { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 20px; }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--ink-muted); }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+  /* ── BRAND NAV TABS (within brand section) ── */
+  .brand-subnav {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 28px;
+    background: var(--cream-dark);
+    border-radius: 8px;
+    padding: 4px;
+    width: fit-content;
+  }
+  .bsn-tab {
+    font-size: 12px;
+    padding: 8px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: var(--ink-muted);
+    transition: background 0.2s, color 0.2s;
+    user-select: none;
+  }
+  .bsn-tab.active { background: white; color: var(--ink); box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+
+  .brand-subsection { display: none; }
+  .brand-subsection.active { display: block; }
+
+  /* ── BRAND HIERARCHY ── */
+  .platform-node {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--cream);
+    padding: 12px 28px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+  }
+  .pn-title { font-size: 14px; font-weight: 600; }
+  .pn-sub { font-size: 11px; opacity: 0.75; margin-top: 2px; }
+  .platform-center { text-align: center; }
+
+  .cat-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  .cat-pill { text-align: center; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; letter-spacing: 0.03em; }
+  .cat-pill.jp { background: var(--coral-light); color: var(--coral); }
+  .cat-pill.tw { background: var(--teal-light); color: var(--teal); }
+  .cat-pill.intl { background: var(--blue-light); color: var(--blue); }
+
+  .tier-block { border-radius: 8px; margin-bottom: 16px; overflow: hidden; border: 1px solid var(--border); }
+  .tier-header { display: flex; align-items: center; gap: 12px; padding: 10px 16px; background: var(--cream-dark); border-bottom: 1px solid var(--border); }
+  .tier-badge { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+  .tier-a .tier-badge { background: var(--ink); color: var(--cream); }
+  .tier-b .tier-badge { background: var(--amber-mid); color: white; }
+  .tier-c .tier-badge { background: var(--ink-faint); color: white; }
+  .tier-d .tier-badge { background: var(--blue-mid); color: white; }
+  .tier-label { font-size: 13px; font-weight: 600; color: var(--ink); }
+  .tier-desc { font-size: 11px; color: var(--ink-faint); margin-left: auto; }
+  .tier-content { padding: 16px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+  .brand-card { border-radius: 7px; padding: 12px 14px; border: 1px solid transparent; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; }
+  .brand-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+  .brand-card.jp { background: var(--coral-light); border-color: #f0c8ba; }
+  .brand-card.tw { background: var(--teal-light); border-color: #b8ddd5; }
+  .brand-card.intl { background: var(--blue-light); border-color: #c8d4f0; }
+  .brand-card.gray { background: var(--gray-light); border-color: var(--border); }
+  .bc-name { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+  .bc-name.jp { color: var(--coral); }
+  .bc-name.tw { color: var(--teal); }
+  .bc-name.intl { color: var(--blue); }
+  .bc-name.gray { color: var(--gray); }
+  .bc-sub { font-size: 11px; color: var(--ink-muted); }
+  .bc-tag { display: inline-block; margin-top: 5px; font-size: 10px; padding: 2px 7px; border-radius: 10px; font-weight: 500; letter-spacing: 0.03em; }
+  .bc-tag.strong { background: var(--ink); color: var(--cream); }
+  .bc-tag.mid { background: var(--amber-light); color: var(--amber); border: 1px solid #e8c87a; }
+  .bc-tag.weak { background: var(--gray-light); color: var(--gray); border: 1px solid var(--border); }
+
+  .sub-brand-row { grid-column: 1 / -1; display: flex; gap: 10px; flex-wrap: wrap; }
+  .sub-brand-pill { border-radius: 20px; padding: 7px 14px; font-size: 12px; font-weight: 500; border: 1px solid transparent; display: flex; flex-direction: column; gap: 1px; }
+  .sub-brand-pill span { font-size: 10px; font-weight: 400; opacity: 0.7; }
+  .sub-brand-pill.jp { background: var(--coral-light); border-color: #f0c8ba; color: var(--coral); }
+  .sub-brand-pill.tw { background: var(--teal-light); border-color: #b8ddd5; color: var(--teal); }
+
+  /* ── COMPARE / RADAR ── */
+  .compare-wrap { background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .compare-header { background: var(--cream-dark); border-bottom: 1px solid var(--border); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  .compare-title { font-size: 14px; font-weight: 600; }
+  .compare-legend { display: flex; gap: 16px; }
+  .cl-item { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--ink-muted); }
+  .cl-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .cl-dot.teal { background: var(--teal-mid); }
+  .cl-dot.coral { background: var(--coral-mid); }
+
+  .compare-body { display: grid; grid-template-columns: 1fr 1fr; }
+  .compare-metrics { padding: 24px; border-right: 1px solid var(--border); }
+  .compare-radar-wrap { padding: 24px; display: flex; flex-direction: column; align-items: center; }
+
+  .metric-row { display: grid; grid-template-columns: 110px 1fr 1fr; gap: 16px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--cream-dark); }
+  .metric-row:last-child { border-bottom: none; }
+  .metric-label { font-size: 12px; color: var(--ink-muted); }
+  .metric-val { font-size: 20px; font-family: var(--font-display); font-weight: 400; }
+  .metric-val.teal { color: var(--teal); }
+  .metric-val.coral { color: var(--coral); }
+  .metric-sub { font-size: 10px; color: var(--ink-faint); }
+
+  .dim-row { margin-bottom: 20px; }
+  .dim-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+  .dim-name { font-size: 13px; color: var(--ink); font-weight: 500; }
+  .dim-scores { font-size: 11px; color: var(--ink-faint); }
+  .dim-bars { display: flex; flex-direction: column; gap: 5px; }
+  .dim-bar-row { display: flex; align-items: center; gap: 10px; }
+  .dim-brand { font-size: 10px; color: var(--ink-faint); width: 48px; }
+  .dim-bar-track { flex: 1; height: 5px; background: var(--cream-dark); border-radius: 3px; overflow: hidden; }
+  .dim-bar-fill { height: 100%; border-radius: 3px; }
+  .dim-bar-fill.teal { background: var(--teal-mid); }
+  .dim-bar-fill.coral { background: var(--coral-mid); }
+  .dim-val { font-size: 11px; font-weight: 600; width: 16px; }
+  .dim-val.teal { color: var(--teal); }
+  .dim-val.coral { color: var(--coral); }
+  .dim-note { font-size: 11px; color: var(--ink-faint); margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--cream-dark); line-height: 1.6; }
+
+  .compare-summary { background: var(--ink); padding: 20px 24px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .cs-item { }
+  .cs-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #666; margin-bottom: 4px; }
+  .cs-val { font-size: 14px; font-weight: 500; }
+  .cs-val.teal { color: var(--teal-mid); }
+  .cs-val.coral { color: var(--coral-mid); }
+  .cs-val.amber { color: var(--amber-mid); font-size: 12px; }
+
+  .radar-note { font-size: 10px; color: var(--ink-faint); margin-top: 12px; text-align: center; }
+
+  /* ── ECOSYSTEM PAGE ── */
+  #page-eco .eco-wrap { padding: 0; position: relative; }
+  #page-eco #diagram { width: 100%; display: block; }
+  #page-eco .eco-hint {
+    padding: 14px 24px;
+    font-size: 11px;
+    color: var(--ink-faint);
+    font-family: monospace;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid var(--border);
+    background: white;
+  }
+  #eco-panel {
+    position: fixed; right: 0; top: 0; bottom: 0; width: 310px;
+    background: white; border-left: 1px solid var(--border);
+    padding: 28px 24px; overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 0.28s cubic-bezier(0.4,0,0.2,1);
+    z-index: 300;
+  }
+  #eco-panel.open { transform: translateX(0); }
+  #eco-panel-close {
+    float: right; background: none; border: none; cursor: pointer;
+    font-size: 16px; color: var(--ink-faint); margin-top: -4px;
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  #eco-panel-close:hover { background: var(--cream-dark); }
+  #eco-panel-tag { font-family: monospace; font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 10px; margin-top: 4px; }
+  #eco-panel-name { font-family: var(--font-display); font-size: 22px; font-weight: 400; line-height: 1.2; margin-bottom: 14px; color: var(--ink); }
+  #eco-panel-body { font-size: 13px; color: var(--ink-muted); line-height: 1.8; }
+  .eco-legend {
+    display: flex; gap: 20px; flex-wrap: wrap;
+    padding: 14px 24px; border-top: 1px solid var(--border);
+    background: white;
+  }
+  .eco-li { display: flex; align-items: center; gap: 7px; font-size: 11px; color: var(--ink-muted); }
+  .eco-ld { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: #666;
+    padding: 24px 60px;
+    font-size: 11px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-brand { color: var(--amber-mid); font-weight: 600; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .site-header, .top-nav, .page-content, footer { padding-left: 24px; padding-right: 24px; }
+    .kpi-grid { grid-template-columns: repeat(2,1fr); }
+    .two-col, .compare-body { grid-template-columns: 1fr; }
+    .three-col, .tier-content { grid-template-columns: 1fr 1fr; }
+    .compare-metrics { border-right: none; border-bottom: 1px solid var(--border); }
+    .compare-summary { grid-template-columns: repeat(2,1fr); }
+    .site-header { position: static; }
+    .insight-item { grid-template-columns: 1fr; gap: 4px; }
+  }
+
+  /* ── ECO PAGE ── */
+  #page-eco { padding: 0; }
+  #page-eco > nav { display: none !important; visibility: hidden !important; }
+  #page-eco > footer { display: none !important; }
+  #page-eco .wrap { padding-top: 0 !important; }
+  #page-eco #panel { top: 93px !important; z-index: 300; }
+  /* restore original legend layout (overrides dashboard's .legend) */
+  #page-eco .legend {
+    display: flex; gap: 24px; flex-wrap: wrap;
+    padding: 18px 40px; border-top: 1px solid var(--border);
+    background: white; margin-bottom: 0;
+    align-items: center;
+  }
+  #page-eco .li { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-muted); }
+  #page-eco .ld { width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0; }
+
 </style>
 </head>
 <body>
-  <header class="shell-header">
-    <div class="shell-label">Integrated Web Report · imeime 時尚彩瞳專門店</div>
-    <h1 class="shell-title">imeime 廣告顧問整合分析報告</h1>
-    <div class="shell-sub">將原本分散的 HTML 報告合併為單一入口頁，保留原頁面的版型、圖表與互動內容，並移除重複版本。</div>
-    <div class="shell-meta">
-      <div><strong>整合內容</strong>成效總覽・品牌陣容・競爭定位</div>
-      <div><strong>重複處理</strong>品牌分析重複檔已覆蓋為單一版本</div>
-      <div><strong>資料期間</strong>2025.01.01 – 2026.04.21</div>
-      <div><strong>產出日期</strong>2026.05.07</div>
+
+<!-- ══════════ GLOBAL HEADER ══════════ -->
+<header class="site-header">
+  <div class="site-header-inner">
+    <div>
+      <div class="site-header-brand">廣告顧問分析報告 · imeime 時尚彩瞳專門店</div>
+      <div class="site-header-title">整合分析總覽</div>
+      <div class="site-header-sub">Meta Ads · Google Ads GA4 · 品牌陣容 · 競爭定位 · 2025.01 – 2026.04</div>
     </div>
-  </header>
-
-  <nav class="toc" id="toc"></nav>
-
-  <main class="report-wrap">
-    <div class="merge-note">
-      整併說明：此頁把 <strong>performance_overview.html</strong>、<strong>imeime_brand_analysis.html</strong>、<strong>radar_chart_v2.html</strong> 合併成一個完整網頁；<strong>imeime_brand_analysis_1.html</strong> 與品牌分析檔內容相同，因此已視為重複版本，不另外插入。
+    <div class="site-header-meta">
+      <div class="hm-item"><strong>資料期間</strong>2025.01.01 – 2026.04.21</div>
+      <div class="hm-item"><strong>分析渠道</strong>Meta · Google · 品牌</div>
+      <div class="hm-item"><strong>報告性質</strong>廣告顧問內部分析</div>
     </div>
-    <div id="sections"></div>
-  </main>
+  </div>
+</header>
 
-  <footer class="footer">
-    <div><strong>imeime Integrated Report</strong> · 廣告顧問內部分析用途</div>
-    <div>Generated as a single self-contained HTML page</div>
-  </footer>
+<!-- ══════════ TOP NAVIGATION ══════════ -->
+<nav class="top-nav">
+  <div class="tn-tab active" onclick="switchPage('perf')"><span class="tn-num">01</span>廣告執行成效</div>
+  <div class="tn-tab" onclick="switchPage('brand')"><span class="tn-num">02</span>品牌陣容分析</div>
+  <div class="tn-tab" onclick="switchPage('compete')"><span class="tn-num">03</span>競爭定位</div>
+  <div class="tn-tab" onclick="switchPage('eco')"><span class="tn-num">04</span>產業生態圖</div>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════
+     PAGE 01 · 廣告執行成效總覽
+══════════════════════════════════════════════════════ -->
+<div id="page-perf" class="page-section active">
+<div class="page-content">
+
+  <!-- ① Meta 核心數據 -->
+  <div class="sec-label">Section 01 · Meta Ads</div>
+  <div class="sec-title">Meta 廣告核心指標</div>
+
+  <div class="kpi-grid" style="margin-bottom:16px;">
+    <div class="kpi-card teal">
+      <div class="kpi-label">總花費</div>
+      <div class="kpi-value">$1,810,854</div>
+      <div class="kpi-sub">TWD · 全年 88 組活動</div>
+    </div>
+    <div class="kpi-card amber">
+      <div class="kpi-label">推算歸因營收</div>
+      <div class="kpi-value">$25,665,299</div>
+      <div class="kpi-sub">花費 × 各活動 ROAS 加總</div>
+      <div class="kpi-badge warn">歸因數字，非實際營收</div>
+    </div>
+    <div class="kpi-card coral">
+      <div class="kpi-label">整體 ROAS</div>
+      <div class="kpi-value">14.17x</div>
+      <div class="kpi-sub">加權平均（逐活動計算）</div>
+      <div class="kpi-badge good">高效水位</div>
+    </div>
+    <div class="kpi-card blue">
+      <div class="kpi-label">整體 CPA</div>
+      <div class="kpi-value">NT$102</div>
+      <div class="kpi-sub">每次購買成本（中位數 $119）</div>
+      <div class="kpi-badge good">低於均值</div>
+    </div>
+  </div>
+
+  <div class="kpi-grid" style="margin-bottom:32px;">
+    <div class="kpi-card gray">
+      <div class="kpi-label">總購買次數</div>
+      <div class="kpi-value">17,719</div>
+      <div class="kpi-sub">Meta 歸因購買</div>
+    </div>
+    <div class="kpi-card gray">
+      <div class="kpi-label">總曝光次數</div>
+      <div class="kpi-value lg">22,038,696</div>
+      <div class="kpi-sub">平均 CPM NT$94.7</div>
+    </div>
+    <div class="kpi-card gray">
+      <div class="kpi-label">總觸及人數</div>
+      <div class="kpi-value lg">5,634,244</div>
+      <div class="kpi-sub">不重複觸及</div>
+    </div>
+    <div class="kpi-card gray">
+      <div class="kpi-label">轉換型活動佔比</div>
+      <div class="kpi-value">93.5%</div>
+      <div class="kpi-sub">花費集中於購買轉換目標</div>
+    </div>
+  </div>
+
+  <!-- ROAS 分層 + Top5 -->
+  <div class="two-col" style="margin-bottom:48px;">
+    <div class="chart-wrap">
+      <div class="chart-title">ROAS 分層 · 花費分布</div>
+      <div class="bar-row">
+        <div class="bar-label">&gt;20x</div>
+        <div class="bar-track"><div class="bar-fill" style="width:11%;background:var(--teal-mid);"><span style="color:white;">12 組</span></div></div>
+        <div class="bar-meta">NT$199,315 · 11%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">15–20x</div>
+        <div class="bar-track"><div class="bar-fill" style="width:24%;background:#5BAD94;"><span style="color:white;">18 組</span></div></div>
+        <div class="bar-meta">NT$434,605 · 24%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">10–15x</div>
+        <div class="bar-track"><div class="bar-fill" style="width:31%;background:var(--amber-mid);"><span style="color:white;">27 組</span></div></div>
+        <div class="bar-meta">NT$561,365 · 31%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">5–10x</div>
+        <div class="bar-track"><div class="bar-fill" style="width:22%;background:#E09A5F;"><span style="color:white;">19 組</span></div></div>
+        <div class="bar-meta">NT$398,388 · 22%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">&lt;5x</div>
+        <div class="bar-track"><div class="bar-fill" style="width:12%;background:var(--coral-mid);"><span style="color:white;">12 組</span></div></div>
+        <div class="bar-meta">NT$217,181 · 12%</div>
+      </div>
+    </div>
+
+    <div class="chart-wrap" style="padding:0;overflow:hidden;">
+      <div style="padding:16px 20px;border-bottom:1px solid var(--border);"><div class="chart-title" style="margin:0;">Top 5 高效活動 · ROAS 排行</div></div>
+      <table class="perf-table">
+        <thead>
+          <tr>
+            <th>活動名稱</th>
+            <th>花費 NT$</th>
+            <th>ROAS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>SEED 免運日</td><td>8,240</td><td><span class="roas-pill roas-high">68.4x</span></td></tr>
+          <tr><td>GEO 滿額折扣</td><td>12,580</td><td><span class="roas-pill roas-high">52.1x</span></td></tr>
+          <tr><td>O2O 周年慶</td><td>31,200</td><td><span class="roas-pill roas-high">41.7x</span></td></tr>
+          <tr><td>品牌月主推</td><td>45,670</td><td><span class="roas-pill roas-high">38.9x</span></td></tr>
+          <tr><td>節慶限定組</td><td>22,440</td><td><span class="roas-pill roas-high">34.2x</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ② Google Ads -->
+  <div class="sec-label">Section 02 · Google Ads GA4</div>
+  <div class="sec-title">Google 廣告核心指標</div>
+
+  <div class="kpi-grid kpi-grid-3" style="margin-bottom:16px;">
+    <div class="kpi-card teal">
+      <div class="kpi-label">Google 總花費</div>
+      <div class="kpi-value">$336,388</div>
+      <div class="kpi-sub">TWD · 24 組活動</div>
+    </div>
+    <div class="kpi-card amber">
+      <div class="kpi-label">GA4 工作階段收益</div>
+      <div class="kpi-value">$9,956,668</div>
+      <div class="kpi-sub">GA4 session 歸因</div>
+    </div>
+    <div class="kpi-card coral">
+      <div class="kpi-label">Google ROAS</div>
+      <div class="kpi-value">29.6x</div>
+      <div class="kpi-sub">GA4 數據（高於 Meta）</div>
+      <div class="kpi-badge good">跨渠道最高</div>
+    </div>
+  </div>
+
+  <div class="kpi-grid" style="margin-bottom:32px;">
+    <div class="kpi-card gray">
+      <div class="kpi-label">總點擊數</div>
+      <div class="kpi-value">186,429</div>
+      <div class="kpi-sub">平均 CPC NT$1.8</div>
+    </div>
+    <div class="kpi-card gray">
+      <div class="kpi-label">總曝光數</div>
+      <div class="kpi-value lg">14,183,201</div>
+      <div class="kpi-sub">搜尋 + 購物 + 展示</div>
+    </div>
+    <div class="kpi-card gray">
+      <div class="kpi-label">Google 購買轉換</div>
+      <div class="kpi-value">2,841</div>
+      <div class="kpi-sub">GA4 歸因購買數</div>
+    </div>
+    <div class="kpi-card gray">
+      <div class="kpi-label">Google CPA</div>
+      <div class="kpi-value">NT$118</div>
+      <div class="kpi-sub">與 Meta 水準相近</div>
+    </div>
+  </div>
+
+  <!-- ③ 整合分析 -->
+  <div class="sec-label">Section 03 · 整合分析與建議</div>
+  <div class="sec-title">跨渠道洞察與優化方向</div>
+
+  <div class="two-col" style="margin-bottom:20px;">
+    <div class="analysis-wrap">
+      <div class="analysis-header">核心洞察</div>
+      <div class="analysis-body">
+        <div class="insight-item">
+          <div class="insight-tag strength">核心優勢</div>
+          <div class="insight-content"><strong>Meta 整體效率高</strong>ROAS 14.17x 處於高效區間；Top 30% 活動花費佔比 35%，產生 ROAS &gt;15x，效率集中度佳。</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-tag strength">核心優勢</div>
+          <div class="insight-content"><strong>Google CPC 極低</strong>NT$1.8 / 點擊，搜尋意圖流量品質高；ROAS 29.6x 顯示高購買意圖轉換力強。</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-tag risk">風險提示</div>
+          <div class="insight-content"><strong>低效尾部活動</strong>ROAS &lt;5x 活動佔花費 12%（NT$217K）；建議停投或整合至高效廣告組。</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-tag opp">機會點</div>
+          <div class="insight-content"><strong>Google 預算偏低</strong>Meta/Google 花費比約 5.4:1，但 Google ROAS 更高；建議重新配置預算比例至 4:1。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="action-box">
+      <div class="ab-title">近期優化行動項目</div>
+      <div class="ab-item">
+        <div class="ab-num">01</div>
+        <div class="ab-content"><strong>砍低效尾部</strong>停投 ROAS &lt;5x 且花費 &gt;NT$5,000 之 12 組活動，釋放 NT$217K 預算。</div>
+      </div>
+      <div class="ab-item">
+        <div class="ab-num">02</div>
+        <div class="ab-content"><strong>擴充 Google 預算</strong>將釋放預算 60% 轉投購物廣告，目標 ROAS 20x 以上。</div>
+      </div>
+      <div class="ab-item">
+        <div class="ab-num">03</div>
+        <div class="ab-content"><strong>複製高效活動結構</strong>提取 Top 5 活動受眾、創意與出價策略，作為新活動複製模板。</div>
+      </div>
+      <div class="ab-item">
+        <div class="ab-num">04</div>
+        <div class="ab-content"><strong>免運日預算預設</strong>下次免運日活動前 48 小時建立，預設總預算 NT$3,000 保留學習期。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    <strong>數字說明：</strong>Meta 推算歸因營收（NT$25,665,299）為各活動「花費 × ROAS」加總，屬 Meta 平台歸因數字，不等同實際訂單營收。Google Ads 收益（NT$9,956,668）來自 GA4 工作階段報表，兩者存在跨渠道重複歸因，實際總營收請以後台訂單數據為準。
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     PAGE 02 · 品牌陣容分析
+══════════════════════════════════════════════════════ -->
+<div id="page-brand" class="page-section">
+<div class="page-content">
+
+  <div class="sec-label">Section 02 · Brand Portfolio</div>
+  <div class="sec-title">品牌陣容分析圖表</div>
+
+  <!-- Sub nav -->
+  <div class="brand-subnav">
+    <div class="bsn-tab active" onclick="switchBrand('hierarchy')">品牌組織與強度梯隊</div>
+    <div class="bsn-tab" onclick="switchBrand('compare')">imeime vs CHA CHA 比較</div>
+  </div>
+
+  <!-- ── 圖一：品牌階層 ── -->
+  <div id="brand-hierarchy" class="brand-subsection active">
+    <div class="section-label">Chart 01 / Brand Hierarchy</div>
+    <div class="section-title">品牌組織圖與市場強度梯隊</div>
+    <div class="section-desc">依廣告 ROAS、市場知名度與商業角色，將 imeime 平台旗下代理品牌分為四個梯隊。顏色代表品牌來源地，梯隊代表市場競爭強度。</div>
+
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--coral-mid)"></div>日本品牌</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--teal-mid)"></div>台灣品牌</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--blue-mid)"></div>國際 / 明星品牌</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--ink-faint)"></div>培育中品牌</div>
+    </div>
+
+    <div style="background:white;border:1px solid var(--border);border-radius:10px;padding:28px;">
+
+      <div class="platform-center">
+        <div class="platform-node">
+          <div class="pn-title">imeime 時尚彩瞳專門店</div>
+          <div class="pn-sub">台灣多品牌代理電商平台 · 靚陽國際</div>
+        </div>
+      </div>
+
+      <div class="cat-row">
+        <div class="cat-pill jp">日本品牌</div>
+        <div class="cat-pill tw">台灣品牌</div>
+        <div class="cat-pill intl">國際 / 明星</div>
+      </div>
+
+      <!-- Tier A -->
+      <div class="tier-block tier-a">
+        <div class="tier-header">
+          <div class="tier-badge">A</div>
+          <div class="tier-label">核心主力品牌</div>
+          <div class="tier-desc">高知名度 · 高廣告 ROAS · 主要營收來源</div>
+        </div>
+        <div class="tier-content">
+          <div class="brand-card jp">
+            <div class="bc-name jp">EOS</div>
+            <div class="bc-sub">日本 No.1 美瞳品牌</div>
+            <div class="bc-tag strong">旗艦主力</div>
+          </div>
+          <div class="brand-card jp">
+            <div class="bc-name jp">Neo Sight</div>
+            <div class="bc-sub">日本高人氣自然系</div>
+            <div class="bc-tag strong">核心主力</div>
+          </div>
+          <div class="brand-card tw">
+            <div class="bc-name tw">Lens++</div>
+            <div class="bc-sub">台灣製造 · 高 ROAS</div>
+            <div class="bc-tag strong">台灣之星</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tier B -->
+      <div class="tier-block tier-b">
+        <div class="tier-header">
+          <div class="tier-badge">B</div>
+          <div class="tier-label">成長潛力品牌</div>
+          <div class="tier-desc">中高知名度 · 廣告表現穩定 · 有擴張空間</div>
+        </div>
+        <div class="tier-content">
+          <div class="brand-card jp">
+            <div class="bc-name jp">Fairy</div>
+            <div class="bc-sub">日本少女系品牌</div>
+            <div class="bc-tag mid">成長中</div>
+          </div>
+          <div class="brand-card jp">
+            <div class="bc-name jp">Seed Eye Coffret</div>
+            <div class="bc-sub">日本醫材認證</div>
+            <div class="bc-tag mid">穩定成長</div>
+          </div>
+          <div class="brand-card tw">
+            <div class="bc-name tw">睛靈</div>
+            <div class="bc-sub">台灣本土品牌</div>
+            <div class="bc-tag mid">本土潛力</div>
+          </div>
+          <div class="brand-card tw">
+            <div class="bc-name tw">星歐</div>
+            <div class="bc-sub">台灣自然系</div>
+            <div class="bc-tag mid">本土潛力</div>
+          </div>
+          <div class="brand-card intl">
+            <div class="bc-name intl">博士倫</div>
+            <div class="bc-sub">國際大廠 · 日拋</div>
+            <div class="bc-tag mid">國際背書</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tier C -->
+      <div class="tier-block tier-c">
+        <div class="tier-header">
+          <div class="tier-badge">C</div>
+          <div class="tier-label">補充品項品牌</div>
+          <div class="tier-desc">特定客群需求 · 補充產品線寬度</div>
+        </div>
+        <div class="tier-content">
+          <div class="sub-brand-row">
+            <div class="sub-brand-pill jp">Motecon<span>日本彩妝系</span></div>
+            <div class="sub-brand-pill jp">Olens<span>韓系自然</span></div>
+            <div class="sub-brand-pill jp">Geo<span>韓國明星系</span></div>
+            <div class="sub-brand-pill tw">Eyemiol<span>台灣新銳</span></div>
+            <div class="sub-brand-pill tw">Horien<span>海昌台灣版</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tier D -->
+      <div class="tier-block tier-d">
+        <div class="tier-header">
+          <div class="tier-badge">D</div>
+          <div class="tier-label">培育 / 試水品牌</div>
+          <div class="tier-desc">廣告量少 · 觀察市場反應中</div>
+        </div>
+        <div class="tier-content">
+          <div class="sub-brand-row">
+            <div class="sub-brand-pill jp">Sweetie Candy<span>明星聯名系列</span></div>
+            <div class="sub-brand-pill jp">Chuu Lens<span>韓系網紅品牌</span></div>
+            <div class="sub-brand-pill tw">Lensvision<span>台灣新品牌</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── 圖二：競品比較（品牌分析頁） ── -->
+  <div id="brand-compare" class="brand-subsection">
+    <div class="section-label">Chart 02 / Competitive Comparison</div>
+    <div class="section-title">imeime vs CHA CHA · 品牌陣容全面比較</div>
+    <div class="section-desc">依官網公開品牌陣容、廣告數據與市場調研進行比較。顯示兩平台在代理品牌選擇、市場定位上的策略差異。</div>
+
+    <div class="compare-wrap">
+      <div class="compare-header">
+        <div class="compare-title">全維度品牌競爭力比較</div>
+        <div class="compare-legend">
+          <div class="cl-item"><div class="cl-dot teal"></div>imeime 時尚彩瞳</div>
+          <div class="cl-item"><div class="cl-dot coral"></div>CHA CHA 美瞳</div>
+        </div>
+      </div>
+
+      <div class="compare-body">
+        <div class="compare-metrics">
+          <div class="metric-row">
+            <div class="metric-label">代理品牌數</div>
+            <div>
+              <div class="metric-val teal">18+</div>
+              <div class="metric-sub">imeime</div>
+            </div>
+            <div>
+              <div class="metric-val coral">20+</div>
+              <div class="metric-sub">CHA CHA</div>
+            </div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label">社群粉絲 (IG)</div>
+            <div>
+              <div class="metric-val teal">11K</div>
+              <div class="metric-sub">imeime IG</div>
+            </div>
+            <div>
+              <div class="metric-val coral">30K</div>
+              <div class="metric-sub">CHA CHA IG</div>
+            </div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label">國際大廠代理</div>
+            <div>
+              <div class="metric-val teal">1家</div>
+              <div class="metric-sub">博士倫</div>
+            </div>
+            <div>
+              <div class="metric-val coral">4家</div>
+              <div class="metric-sub">嬌生·愛爾康·酷柏·博士倫</div>
+            </div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label">台灣製品牌深度</div>
+            <div>
+              <div class="metric-val teal">強</div>
+              <div class="metric-sub">Lens++·睛靈·星歐</div>
+            </div>
+            <div>
+              <div class="metric-val coral">弱</div>
+              <div class="metric-sub">主攻韓國品牌</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="compare-radar-wrap">
+          <canvas id="radarCanvas" width="320" height="320"></canvas>
+          <div style="display:flex;gap:16px;margin-top:12px;">
+            <div class="cl-item"><div class="cl-dot teal"></div>imeime</div>
+            <div class="cl-item"><div class="cl-dot coral"></div>CHA CHA</div>
+          </div>
+          <div class="radar-note">* 滿分 10 分 · 依公開可見資料評估</div>
+        </div>
+      </div>
+
+      <!-- Dimension detail -->
+      <div style="padding:24px;border-top:1px solid var(--border);">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+
+          <div class="dim-row">
+            <div class="dim-head">
+              <div class="dim-name">品牌知名度</div>
+              <div class="dim-scores">imeime 6 · CHA CHA 8</div>
+            </div>
+            <div class="dim-bars">
+              <div class="dim-bar-row"><div class="dim-brand">imeime</div><div class="dim-bar-track"><div class="dim-bar-fill teal" style="width:60%"></div></div><div class="dim-val teal">6</div></div>
+              <div class="dim-bar-row"><div class="dim-brand">CHA CHA</div><div class="dim-bar-track"><div class="dim-bar-fill coral" style="width:80%"></div></div><div class="dim-val coral">8</div></div>
+            </div>
+            <div class="dim-note">CHA CHA 代理 OPT 圓瑞（長期熱銷 No.1）及 LENS TOWN 等高知名度韓牌，整體品牌知名度水位較高。</div>
+          </div>
+
+          <div class="dim-row">
+            <div class="dim-head">
+              <div class="dim-name">品牌陣容深度</div>
+              <div class="dim-scores">imeime 7 · CHA CHA 8</div>
+            </div>
+            <div class="dim-bars">
+              <div class="dim-bar-row"><div class="dim-brand">imeime</div><div class="dim-bar-track"><div class="dim-bar-fill teal" style="width:70%"></div></div><div class="dim-val teal">7</div></div>
+              <div class="dim-bar-row"><div class="dim-brand">CHA CHA</div><div class="dim-bar-track"><div class="dim-bar-fill coral" style="width:80%"></div></div><div class="dim-val coral">8</div></div>
+            </div>
+            <div class="dim-note">兩者品牌數量相當，imeime 台灣製品牌較深（Lens++、睛靈、星歐），CHA CHA 韓國品牌覆蓋更廣。</div>
+          </div>
+
+          <div class="dim-row">
+            <div class="dim-head">
+              <div class="dim-name">國際大廠代理</div>
+              <div class="dim-scores">imeime 4 · CHA CHA 9</div>
+            </div>
+            <div class="dim-bars">
+              <div class="dim-bar-row"><div class="dim-brand">imeime</div><div class="dim-bar-track"><div class="dim-bar-fill teal" style="width:40%"></div></div><div class="dim-val teal">4</div></div>
+              <div class="dim-bar-row"><div class="dim-brand">CHA CHA</div><div class="dim-bar-track"><div class="dim-bar-fill coral" style="width:90%"></div></div><div class="dim-val coral">9</div></div>
+            </div>
+            <div class="dim-note">CHA CHA 代理嬌生 ACUVUE、愛爾康、酷柏、博士倫全系列；imeime 僅有博士倫，差距最大的維度。</div>
+          </div>
+
+          <div class="dim-row">
+            <div class="dim-head">
+              <div class="dim-name">社群聲量</div>
+              <div class="dim-scores">imeime 4 · CHA CHA 8</div>
+            </div>
+            <div class="dim-bars">
+              <div class="dim-bar-row"><div class="dim-brand">imeime</div><div class="dim-bar-track"><div class="dim-bar-fill teal" style="width:40%"></div></div><div class="dim-val teal">4</div></div>
+              <div class="dim-bar-row"><div class="dim-brand">CHA CHA</div><div class="dim-bar-track"><div class="dim-bar-fill coral" style="width:80%"></div></div><div class="dim-val coral">8</div></div>
+            </div>
+            <div class="dim-note">imeime FB 13.8K / IG 11K；CHA CHA IG 30K，差距約 2.7 倍，有機觸及能力明顯偏弱。</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="compare-summary">
+        <div class="cs-item"><div class="cs-label">imeime 總分</div><div class="cs-val teal">21 / 40</div></div>
+        <div class="cs-item"><div class="cs-label">CHA CHA 總分</div><div class="cs-val coral">33 / 40</div></div>
+        <div class="cs-item"><div class="cs-label">imeime 相對優勢</div><div class="cs-val amber">台灣製品牌深度</div></div>
+        <div class="cs-item"><div class="cs-label">最大差距維度</div><div class="cs-val amber">國際大廠代理</div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     PAGE 03 · 競爭定位雷達圖
+══════════════════════════════════════════════════════ -->
+<div id="page-compete" class="page-section">
+<div class="page-content">
+
+  <div class="sec-label">Section 03 · Competitive Positioning</div>
+  <div class="sec-title">競爭定位分析 · 四維度雷達圖</div>
+
+  <div style="display:grid;grid-template-columns:1fr 360px;gap:32px;align-items:start;">
+
+    <div class="chart-wrap" style="display:flex;flex-direction:column;align-items:center;padding:36px;">
+      <div style="align-self:flex-start;margin-bottom:4px;">
+        <div class="section-label">imeime vs CHA CHA</div>
+        <div class="section-title" style="margin-bottom:0;">四維度競爭定位雷達圖</div>
+      </div>
+      <div style="font-size:11px;color:var(--ink-faint);margin-bottom:28px;align-self:flex-start;">滿分 10 分 · 依公開品牌陣容、社群數據與市場調研評估</div>
+      <canvas id="radarBig" width="480" height="480" style="max-width:440px;width:100%;height:auto;"></canvas>
+      <div style="display:flex;gap:24px;margin-top:20px;">
+        <div class="cl-item"><div class="cl-dot teal"></div>imeime 時尚彩瞳</div>
+        <div class="cl-item"><div class="cl-dot coral"></div>CHA CHA 美瞳</div>
+      </div>
+      <div class="radar-note">* 評分基於公開品牌陣容、社群數據與市場調研，不涉及財務或廣告後台數據</div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:14px;">
+
+      <!-- Dim cards -->
+      <div style="background:white;border:1px solid var(--border);border-radius:8px;padding:16px 18px;position:relative;overflow:hidden;">
+        <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--amber-mid);border-radius:3px 0 0 3px;"></div>
+        <div style="font-size:9px;letter-spacing:0.2em;color:var(--ink-faint);text-transform:uppercase;margin-bottom:4px;">Dimension 01</div>
+        <div style="font-size:13px;font-weight:500;margin-bottom:10px;">品牌知名度</div>
+        <div class="dim-bars">
+          <div class="dim-bar-row"><div class="dim-brand">imeime</div><div class="dim-bar-track"><div class="dim-bar-fill teal" style="width:60%"></div></div><div class="dim-val teal">6</div></div>
+          <div class="dim-bar-row"><div class="dim-brand">CHA CHA</div><div class="dim-bar-track"><div class="dim-bar-fill coral" style="width:80%"></div></div><div class="dim-val coral">8</div></div>
+        </div>
+        <div class="dim-note">CHA CHA 代理長期熱銷 No.1 的 OPT 圓瑞及 LENS TOWN，整體品牌知名度水位較高。</div>
+      </div>
+
+      <div style="background:white;border:1px solid var(--border);border-radius:8px;padding:16px 18px;position:relative;overflow:hidden;">
+        <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:#7c6fcd;border-radius:3px 0 0 3px;"></div>
+        <div style="font-size:9px;letter-spacing:0.2em;color:var(--ink-faint);text-transform:uppercase;margin-bottom:4px;">Dimension 02</div>
+        <div style="font-size:13px;font-weight:500;margin-bottom:10px;">品牌陣容深度</div>
+        <div class="dim-bars">
+          <div class="dim-bar-row"><div class="dim-brand">imeime</div><div class="dim-bar-track"><div class="dim-bar-fill teal" style="width:70%"></div></div><div class="dim-val teal">7</div></div>
+          <div class="dim-bar-row"><div class="dim-brand">CHA CHA</div><div class="dim-bar-track"><div class="dim-bar-fill coral" style="width:80%"></div></div><div class="dim-val coral">8</div></div>
+        </div>
+        <div class="dim-note">imeime 台灣製品牌較深（Lens++、睛靈、星歐），CHA CHA 韓國品牌覆蓋更廣。</div>
+      </div>
+
+      <div style="background:white;border:1px solid var(--border);border-radius:8px;padding:16px 18px;position:relative;overflow:hidden;">
+        <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--blue-mid);border-radius:3px 0 0 3px;"></div>
+        <div style="font-size:9px;letter-spacing:0.2em;color:var(--ink-faint);text-transform:uppercase;margin-bottom:4px;">Dimension 03</div>
+        <div style="font-size:13px;font-weight:500;margin-bottom:10px;">國際大廠代理</div>
+        <div class="dim-bars">
+          <div class="dim-bar-row"><div class="dim-brand">imeime</div><div class="dim-bar-track"><div class="dim-bar-fill teal" style="width:40%"></div></div><div class="dim-val teal">4</div></div>
+          <div class="dim-bar-row"><div class="dim-brand">CHA CHA</div><div class="dim-bar-track"><div class="dim-bar-fill coral" style="width:90%"></div></div><div class="dim-val coral">9</div></div>
+        </div>
+        <div class="dim-note">CHA CHA 代理嬌生、愛爾康、酷柏、博士倫全系列；imeime 僅有博士倫，差距最大。</div>
+      </div>
+
+      <div style="background:white;border:1px solid var(--border);border-radius:8px;padding:16px 18px;position:relative;overflow:hidden;">
+        <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--teal-mid);border-radius:3px 0 0 3px;"></div>
+        <div style="font-size:9px;letter-spacing:0.2em;color:var(--ink-faint);text-transform:uppercase;margin-bottom:4px;">Dimension 04</div>
+        <div style="font-size:13px;font-weight:500;margin-bottom:10px;">社群聲量</div>
+        <div class="dim-bars">
+          <div class="dim-bar-row"><div class="dim-brand">imeime</div><div class="dim-bar-track"><div class="dim-bar-fill teal" style="width:40%"></div></div><div class="dim-val teal">4</div></div>
+          <div class="dim-bar-row"><div class="dim-brand">CHA CHA</div><div class="dim-bar-track"><div class="dim-bar-fill coral" style="width:80%"></div></div><div class="dim-val coral">8</div></div>
+        </div>
+        <div class="dim-note">imeime FB 13.8K / IG 11K；CHA CHA IG 30K，差距約 2.7 倍，有機觸及能力偏弱。</div>
+      </div>
+
+      <div style="background:var(--ink);border-radius:8px;padding:18px 18px;color:var(--cream);">
+        <div style="font-size:9px;letter-spacing:0.2em;color:#888;text-transform:uppercase;margin-bottom:12px;">總分對比</div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;border-bottom:1px solid #2a2a28;font-size:12px;">
+          <span style="color:#888;">imeime 總分</span>
+          <span style="font-family:var(--font-display);font-size:15px;color:var(--teal-mid);">21 / 40</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;border-bottom:1px solid #2a2a28;font-size:12px;">
+          <span style="color:#888;">CHA CHA 總分</span>
+          <span style="font-family:var(--font-display);font-size:15px;color:var(--coral-mid);">33 / 40</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;border-bottom:1px solid #2a2a28;font-size:12px;">
+          <span style="color:#888;">imeime 相對優勢</span>
+          <span style="color:var(--amber-mid);font-size:12px;">台灣製品牌深度</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;font-size:12px;">
+          <span style="color:#888;">最大差距維度</span>
+          <span style="color:var(--amber-mid);font-size:12px;">國際大廠代理</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- PAGE 04 · 台灣隱形眼鏡產業生態圖 -->
+<div id="page-eco" class="page-section">
+<nav>
+  <div class="nav-logo">adhackr · 台灣隱形眼鏡產業生態圖</div>
+  <div class="nav-hint">點擊節點查看詳情 · 箭頭代表品牌授權或通路關係</div>
+</nav>
+
+<div class="wrap">
+<svg id="diagram" viewBox="0 0 1000 860" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <!-- arrow markers -->
+  <marker id="arr-gold" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <marker id="arr-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#1A6B5C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <marker id="arr-lav" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#9B8EC4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <marker id="arr-gray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#B8B2A8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <marker id="arr-coral" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#C44B2B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+
+<!-- ══════════════════════════════════════
+     LAYER LABELS (left column x=0~100)
+════════════════════════════════════════ -->
+<!-- L1 製造 y=60 -->
+<text x="90" y="92" text-anchor="end" font-family="DM Mono,monospace" font-size="11" fill="#9A9690" letter-spacing="1">製造層</text>
+<!-- L2 品牌 y=200 -->
+<text x="90" y="232" text-anchor="end" font-family="DM Mono,monospace" font-size="11" fill="#9A9690" letter-spacing="1">品牌層</text>
+<!-- L3 代理 y=400 -->
+<text x="90" y="432" text-anchor="end" font-family="DM Mono,monospace" font-size="11" fill="#9A9690" letter-spacing="1">代理層</text>
+<!-- L4 通路 y=560 -->
+<text x="90" y="592" text-anchor="end" font-family="DM Mono,monospace" font-size="11" fill="#9A9690" letter-spacing="1">配送通路</text>
+<!-- L5 消費者 y=720 -->
+<text x="90" y="752" text-anchor="end" font-family="DM Mono,monospace" font-size="11" fill="#9A9690" letter-spacing="1">消費者</text>
+
+<!-- separator lines -->
+<line x1="100" y1="60" x2="100" y2="820" stroke="#D8D3CA" stroke-width="0.5"/>
+<line x1="100" y1="170" x2="980" y2="170" stroke="#D8D3CA" stroke-width="0.5" stroke-dasharray="4 3"/>
+<line x1="100" y1="360" x2="980" y2="360" stroke="#D8D3CA" stroke-width="0.5" stroke-dasharray="4 3"/>
+<line x1="100" y1="530" x2="980" y2="530" stroke="#D8D3CA" stroke-width="0.5" stroke-dasharray="4 3"/>
+<line x1="100" y1="700" x2="980" y2="700" stroke="#D8D3CA" stroke-width="0.5" stroke-dasharray="4 3"/>
+
+<!-- 法規橫幅 between 代理 and 通路 -->
+<rect x="100" y="500" width="880" height="30" rx="0" fill="#FAEEE9"/>
+<line x1="100" y1="500" x2="980" y2="500" stroke="#F0C8BA" stroke-width="0.8"/>
+<line x1="100" y1="530" x2="980" y2="530" stroke="#F0C8BA" stroke-width="0.8"/>
+<text x="540" y="519" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="#C44B2B">法規限制：隱形眼鏡屬第二級醫療器材，不得網路直售，須透過持照藥商以實體通路交付</text>
+
+<!-- 金可集團虛線框 (spans 製造+品牌+通路) -->
+<rect x="108" y="66" width="222" height="468" rx="10" fill="none" stroke="#E8C87A" stroke-width="1.2" stroke-dasharray="6 3"/>
+<rect x="112" y="62" width="100" height="16" rx="3" fill="#F8F6F1"/>
+<text x="162" y="73" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#8B5E0A" letter-spacing="1">金可集團</text>
+
+<!-- ══════════════════════════════════════
+     L1 製造層 y=60~170
+════════════════════════════════════════ -->
+
+<!-- 台灣永勝光學 -->
+<g class="node" onclick="ecoShowPanel('台灣永勝光學','製造層・金可集團旗下','金可集團在台灣的隱形眼鏡製造基地，位於台中科學園區，通過 GMP、ISO 認證，採高速自動化生產。負責製造海昌 Hydron 品牌產品，是金可垂直整合鏈的核心製造端。在台灣隱形眼鏡市場，台製（MIT）品牌往往被消費者認為品質相對有保障。')" style="cursor:pointer">
+  <rect x="118" y="72" width="196" height="52" rx="7" fill="#FDF3E0" stroke="#E8C87A" stroke-width="0.8"/>
+  <text x="216" y="94" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" font-weight="500" fill="#8B5E0A">台灣永勝光學</text>
+  <text x="216" y="112" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#A67212">金可集團製造端・台中科學園區</text>
+</g>
+
+<!-- T-Garden -->
+<g class="node" onclick="ecoShowPanel('T-Garden 緹花園','製造層・日本品牌商','日本隱形眼鏡品牌商，旗下有 FLANMY、CRUUM、Loveil 三個子品牌，各有不同明星代言策略。在台灣透過多個代理平台同時鋪貨（imeime、CHA CHA、研究視），屬多通路品牌。這也是 imeime、CHA CHA、研究視在 Meta 廣告競價時互相推高 CPM 的主因之一。')" style="cursor:pointer">
+  <rect x="360" y="72" width="168" height="52" rx="7" fill="#F0EEE9" stroke="#D8D3CA" stroke-width="0.8"/>
+  <text x="444" y="94" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" font-weight="500" fill="#5A5750">T-Garden 緹花園</text>
+  <text x="444" y="112" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#9A9690">日本品牌商</text>
+</g>
+
+<!-- 國際大廠 -->
+<g class="node" onclick="ecoShowPanel('國際大廠','製造層・全球品牌','嬌生（ACUVUE）、愛爾康（Alcon）、博士倫（Bausch+Lomb）等國際大廠，在台灣需透過代理商與具藥商執照的通路販售。由於不具備自有實體通路，這些品牌實際上需要依賴代理商體系，是 imeime 等平台的供應來源，而非直接競爭對手。CHA CHA 代理了嬌生、愛爾康、酷柏等，是品牌陣容最完整的平台。')" style="cursor:pointer">
+  <rect x="580" y="72" width="200" height="52" rx="7" fill="#F0EEE9" stroke="#D8D3CA" stroke-width="0.8"/>
+  <text x="680" y="94" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" font-weight="500" fill="#5A5750">國際大廠</text>
+  <text x="680" y="112" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#9A9690">嬌生・愛爾康・博士倫</text>
+</g>
+
+<!-- ══════════════════════════════════════
+     L2 品牌層 y=200~360
+════════════════════════════════════════ -->
+
+<!-- 海昌 Hydron -->
+<g class="node" onclick="ecoShowPanel('海昌 Hydron','品牌層・金可自有品牌','金可集團旗下自有品牌，台灣製造。Facebook 粉絲 145,113，社群聲量遠超所有代理平台。在台灣不可網路直售，但透過金可旗下的寶島眼鏡、小林眼鏡作為取貨通路，形成完整的垂直整合閉環。消費者從驗光到取貨可完全在金可體系內完成，不需要透過 imeime 等代理平台。這是 imeime 面對的最大結構性競爭壓力。')" style="cursor:pointer">
+  <rect x="118" y="200" width="196" height="52" rx="7" fill="#FDF3E0" stroke="#E8C87A" stroke-width="0.8"/>
+  <text x="216" y="222" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" font-weight="500" fill="#8B5E0A">海昌 Hydron</text>
+  <text x="216" y="240" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#A67212">金可自有品牌・FB 145K</text>
+</g>
+
+<!-- QUINLIVAN -->
+<g class="node" onclick="ecoShowPanel('QUINLIVAN','品牌層・明星自創品牌','藝人昆凌自創彩瞳品牌，主打微美瞳定位。在 imeime 廣告帳戶中表現最佳之一，CHA CHA 亦有代理，廣告競價存在重疊。消費者對品牌的明星連結度高，購買決策受偶像效應影響明顯。Google 品牌字搜尋量穩定，消費者黏著度高，是高價值的防守關鍵字。')" style="cursor:pointer">
+  <rect x="340" y="200" width="140" height="52" rx="7" fill="#E1F0EC" stroke="#9DD4C5" stroke-width="0.8"/>
+  <text x="410" y="222" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" font-weight="500" fill="#1A6B5C">QUINLIVAN</text>
+  <text x="410" y="240" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#1A6B5C">昆凌自創</text>
+</g>
+
+<!-- Lens++ -->
+<g class="node" onclick="ecoShowPanel('Lens++ 永暘光學','品牌層・台灣自有品牌','台灣製造，主打矽水膠材質與抗藍光功能。是 imeime 廣告帳戶中花費最高的單一品牌（NT$230K），廣告效益穩定。CHA CHA 未代理，屬 imeime 的廣告競價壁壘品牌——在這個品牌上投放廣告，不需要跟 CHA CHA 搶受眾，CPM 相對低，是 imeime 最具防守優勢的品牌之一。')" style="cursor:pointer">
+  <rect x="500" y="200" width="140" height="52" rx="7" fill="#E1F0EC" stroke="#9DD4C5" stroke-width="0.8"/>
+  <text x="570" y="222" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" font-weight="500" fill="#1A6B5C">Lens++ 永暘</text>
+  <text x="570" y="240" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#1A6B5C">台製・矽水膠</text>
+</g>
+
+<!-- FLANMY / CRUUM / Loveil -->
+<g class="node" onclick="ecoShowPanel('FLANMY・CRUUM・Loveil','品牌層・T-Garden 旗下三品牌','T-Garden 旗下三個子品牌，各有不同明星代言：FLANMY（佐佐木希）、CRUUM（韓團 TUSKI）、Loveil（倖田來未）。三個品牌均由 imeime、CHA CHA、研究視同時代理，是目前廣告競價重疊最嚴重的品牌群。在 imeime 廣告帳戶中，三品牌 ROAS 均在 19–20x，廣告效益良好，但三平台同時競價推高了 CPM。')" style="cursor:pointer">
+  <rect x="660" y="200" width="200" height="52" rx="7" fill="#EEEDF8" stroke="#C8C4F0" stroke-width="0.8"/>
+  <text x="760" y="222" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" font-weight="500" fill="#5B3FA8">FLANMY・CRUUM・Loveil</text>
+  <text x="760" y="240" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#5B3FA8">T-Garden 旗下・明星代言</text>
+</g>
+
+<!-- 其他品牌 row 2 -->
+<g class="node" onclick="ecoShowPanel('妝美堂系列','品牌層・日本品牌組合','旗下包含晶瞳 CRYSTE、佐美 Sami、視妝美 Decorative、PienAge 四個副牌，各自定位不同受眾。整體廣告花費約 NT$190K，但各副牌 ROAS 差異懸殊（2.4x–13.4x）。PienAge ROAS 僅 2.4x，是 imeime 廣告帳戶中效益最低的品牌，可能具有合約推廣義務，不能單純以效益評斷。')" style="cursor:pointer">
+  <rect x="340" y="278" width="140" height="52" rx="7" fill="#F0EEE9" stroke="#D8D3CA" stroke-width="0.8"/>
+  <text x="410" y="298" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" font-weight="500" fill="#5A5750">妝美堂系列</text>
+  <text x="410" y="316" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#9A9690">晶瞳・佐美・PienAge</text>
+</g>
+
+<g class="node" onclick="ecoShowPanel('TeAmo・星歐・睛靈 等','品牌層・其他代理品牌','TeAmo（日本品牌，imeime 代理，花費排名第三 NT$161K，ROAS 14x）、星歐 LARGAN（台製月拋）、睛靈 SmartVision（台製多國專利）、魔幻糖果 Candy Magic、Revia 蕾美、timido 等品牌，各自在 imeime 平台上有穩定的配送量。')" style="cursor:pointer">
+  <rect x="500" y="278" width="160" height="52" rx="7" fill="#F0EEE9" stroke="#D8D3CA" stroke-width="0.8"/>
+  <text x="580" y="298" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" font-weight="500" fill="#5A5750">TeAmo・星歐・睛靈 等</text>
+  <text x="580" y="316" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#9A9690">其他代理品牌</text>
+</g>
+
+<!-- ══════════════════════════════════════
+     L3 代理層 y=380~500
+════════════════════════════════════════ -->
+
+<!-- imeime -->
+<g class="node" onclick="ecoShowPanel('靚陽國際（imeime）','代理層・多品牌代理平台','imeime 的母公司，持有藥商執照，代理 18+ 品牌。2025 全年 Meta 廣告花費 NT$1.81M，整體 ROAS 14.17x，88 組廣告活動。台灣製品牌陣容（Lens++、睛靈、星歐）是相對競品的差異化壁壘，這些品牌 CHA CHA 未代理，廣告競價時不需要跟 CHA CHA 搶受眾。')" style="cursor:pointer">
+  <rect x="118" y="390" width="196" height="56" rx="8" fill="#E1F0EC" stroke="#1A6B5C" stroke-width="1.2"/>
+  <text x="216" y="413" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" font-weight="500" fill="#1A6B5C">靚陽國際（imeime）</text>
+  <text x="216" y="432" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#1A6B5C">代理 18+ 品牌・藥商執照</text>
+</g>
+
+<!-- CHA CHA -->
+<g class="node" onclick="ecoShowPanel('CHA CHA','代理層・第一層競爭對手','目前 imeime 最直接的競爭對手。國際大廠代理最齊全（嬌生、愛爾康、酷柏、博士倫），韓國品牌覆蓋廣（OPT 圓瑞、LENS TOWN）。IG 30K，社群互動遠強於 imeime（最高貼文 16,332 愛心 vs imeime 231）。與 imeime 在 T-Garden、QUINLIVAN 等品牌廣告上直接競價，互相推高 CPM。')" style="cursor:pointer">
+  <rect x="360" y="390" width="150" height="56" rx="8" fill="#FAEEE9" stroke="#C44B2B" stroke-width="0.8"/>
+  <text x="435" y="413" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" font-weight="500" fill="#C44B2B">CHA CHA</text>
+  <text x="435" y="432" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#C44B2B">韓牌・國際大廠齊全</text>
+</g>
+
+<!-- BBLens -->
+<g class="node" onclick="ecoShowPanel('BBLens','代理層・第一層競爭對手','主打全台 8,000 間取貨點的高密度配送，是配送便利性最強的平台。另有自有品牌計畫（BBLens 日拋）。IG 2,837，社群聲量最小。FB 7,087。品牌陣容超過 20 種，但以透明隱眼為主，彩瞳比例相對少。')" style="cursor:pointer">
+  <rect x="540" y="390" width="130" height="56" rx="8" fill="#FAEEE9" stroke="#C44B2B" stroke-width="0.8"/>
+  <text x="605" y="413" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" font-weight="500" fill="#C44B2B">BBLens</text>
+  <text x="605" y="432" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#C44B2B">全台 8,000 取貨點</text>
+</g>
+
+<!-- 研究視 -->
+<g class="node" onclick="ecoShowPanel('研究視 afternoon','代理層・第一層競爭對手','有實體直營店，線上線下整合。代理 T-Garden、QUINLIVAN、嬌生、酷柏、LENSTOWN 等，與 imeime 廣告競價重疊品牌多。IG 5,918，FB 1,744。實體店的信任感是差異化定位，消費者可以現場試戴。')" style="cursor:pointer">
+  <rect x="700" y="390" width="150" height="56" rx="8" fill="#FAEEE9" stroke="#C44B2B" stroke-width="0.8"/>
+  <text x="775" y="413" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" font-weight="500" fill="#C44B2B">研究視 afternoon</text>
+  <text x="775" y="432" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#C44B2B">實體直營・線上整合</text>
+</g>
+
+<!-- ══════════════════════════════════════
+     L4 配送通路層 y=540~700
+════════════════════════════════════════ -->
+
+<!-- 線上預約配送 -->
+<g class="node" onclick="ecoShowPanel('線上預約配送模式','配送通路・所有代理平台共用','隱形眼鏡不得於網路直售，但代理平台可透過「線上預約 + 上傳處方簽 + 超商/宅配取貨」模式合法運作。這是 imeime、CHA CHA、BBLens、研究視共同的運作基礎，也是台灣隱形眼鏡電商的法規灰色地帶解法。消費者需先至特約門市或上傳更新處方簽，才能申請預約配送。')" style="cursor:pointer">
+  <rect x="118" y="548" width="220" height="56" rx="8" fill="#E1F0EC" stroke="#9DD4C5" stroke-width="0.8"/>
+  <text x="228" y="571" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" font-weight="500" fill="#1A6B5C">線上預約配送平台</text>
+  <text x="228" y="590" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#1A6B5C">上傳處方簽 → 超商 / 宅配取貨</text>
+</g>
+
+<!-- 寶島小林（金可） -->
+<g class="node" onclick="ecoShowPanel('寶島眼鏡・小林眼鏡','配送通路・金可集團旗下','金可集團旗下台灣前二大眼鏡連鎖通路（2001年併購）。同時具備驗光服務、藥商執照與品牌供應鏈關係（直接供應海昌），消費者可在同一地點完成驗光到取貨的完整流程。這讓消費者完全不需要透過 imeime 等代理平台——這是金可集團垂直整合對中間層代理商最直接的結構性威脅。')" style="cursor:pointer">
+  <rect x="390" y="548" width="220" height="56" rx="8" fill="#FDF3E0" stroke="#E8C87A" stroke-width="1"/>
+  <text x="500" y="571" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" font-weight="500" fill="#8B5E0A">寶島眼鏡・小林眼鏡</text>
+  <text x="500" y="590" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#A67212">金可旗下・驗光 + 取貨一站完成</text>
+</g>
+
+<!-- 屈臣氏康是美 -->
+<g class="node" onclick="ecoShowPanel('屈臣氏・康是美','配送通路・藥妝連鎖','持有藥商執照，可合法銷售並作為取貨通路。消費者可在屈臣氏線上選購、門市取貨，與 imeime 超商取貨模式本質相同。差異在於品牌陣容較少、無驗光服務，主要服務已知道要買什麼的回購客。競爭邏輯介於第一圈（主動選平台）和純間接競爭之間，對回購客的吸引力不容忽視。')" style="cursor:pointer">
+  <rect x="660" y="548" width="190" height="56" rx="8" fill="#F0EEE9" stroke="#D8D3CA" stroke-width="0.8"/>
+  <text x="755" y="571" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" font-weight="500" fill="#5A5750">屈臣氏・康是美</text>
+  <text x="755" y="590" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#9A9690">藥妝連鎖・門市銷售</text>
+</g>
+
+<!-- ══════════════════════════════════════
+     L5 消費者 y=720~800
+════════════════════════════════════════ -->
+<g class="node" onclick="ecoShowPanel('消費者','消費者・購買決策路徑','台灣隱形眼鏡消費者的購買決策路徑受法規約束：1) 先至眼科或驗光所驗光，取得處方簽；2) 依照偏好選擇品牌與款式（受明星效應、KOL 推薦、社群口碑影響）；3) 選擇配送通路（imeime / CHA CHA / BBLens 等線上平台，或直接至寶島眼鏡等實體通路）。平台的競爭發生在步驟 3——消費者已確定購買意向，差異化在於品牌款式齊全度、配送便利性、促銷機制與會員黏著度。')" style="cursor:pointer">
+  <rect x="300" y="720" width="400" height="56" rx="8" fill="#EEEDF8" stroke="#C8C4F0" stroke-width="0.8"/>
+  <text x="500" y="743" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" font-weight="500" fill="#5B3FA8">消費者</text>
+  <text x="500" y="762" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#5B3FA8">需先驗光取得處方 → 選品牌 → 選配送通路</text>
+</g>
+
+<!-- ══════════════════════════════════════
+     ARROWS
+════════════════════════════════════════ -->
+
+<!-- 製造 → 品牌 (金可內部) -->
+<line x1="216" y1="124" x2="216" y2="200" stroke="#C9A84C" stroke-width="1.2" marker-end="url(#arr-gold)"/>
+
+<!-- T-Garden → 旗下品牌 -->
+<line x1="444" y1="124" x2="760" y2="200" stroke="#B8B2A8" stroke-width="0.8" marker-end="url(#arr-gray)"/>
+
+<!-- 國際大廠 → 代理層 (多平台) -->
+<path d="M680 124 L680 160 L435 160 L435 390" fill="none" stroke="#B8B2A8" stroke-width="0.8" stroke-dasharray="5 3" marker-end="url(#arr-gray)"/>
+<path d="M700 124 L700 160 L605 160 L605 390" fill="none" stroke="#B8B2A8" stroke-width="0.8" stroke-dasharray="5 3" marker-end="url(#arr-gray)"/>
+
+<!-- 海昌 → 寶島/小林 (金可直供) -->
+<line x1="216" y1="252" x2="216" y2="360" stroke="#C9A84C" stroke-width="1" stroke-dasharray="0"/>
+<line x1="216" y1="360" x2="500" y2="360" stroke="#C9A84C" stroke-width="1"/>
+<line x1="500" y1="360" x2="500" y2="548" stroke="#C9A84C" stroke-width="1.2" marker-end="url(#arr-gold)"/>
+
+<!-- QUINLIVAN → imeime -->
+<path d="M410 252 L350 320 L216 390" fill="none" stroke="#9DD4C5" stroke-width="0.8" stroke-dasharray="5 3" marker-end="url(#arr-teal)"/>
+<!-- QUINLIVAN → CHA CHA -->
+<path d="M430 252 L435 390" fill="none" stroke="#F0C8BA" stroke-width="0.8" stroke-dasharray="5 3" marker-end="url(#arr-coral)"/>
+
+<!-- Lens++ → imeime -->
+<path d="M540 252 L380 340 L216 390" fill="none" stroke="#9DD4C5" stroke-width="0.8" stroke-dasharray="5 3" marker-end="url(#arr-teal)"/>
+
+<!-- FLANMY/CRUUM/Loveil → imeime / CHA CHA / 研究視 -->
+<path d="M730 252 L500 340 L216 390" fill="none" stroke="#C8C4F0" stroke-width="0.8" stroke-dasharray="5 3" marker-end="url(#arr-lav)"/>
+<path d="M760 252 L435 390" fill="none" stroke="#C8C4F0" stroke-width="0.8" stroke-dasharray="5 3" marker-end="url(#arr-lav)"/>
+<path d="M780 252 L775 390" fill="none" stroke="#C8C4F0" stroke-width="0.8" stroke-dasharray="5 3" marker-end="url(#arr-lav)"/>
+
+<!-- 妝美堂 → imeime -->
+<path d="M410 330 L310 370 L216 390" fill="none" stroke="#B8B2A8" stroke-width="0.8" stroke-dasharray="5 3" marker-end="url(#arr-gray)"/>
+
+<!-- 其他品牌 → imeime -->
+<path d="M500 330 L350 370 L216 390" fill="none" stroke="#B8B2A8" stroke-width="0.8" stroke-dasharray="5 3" marker-end="url(#arr-gray)"/>
+
+<!-- 代理層 → 三個配送通路（分流）-->
+<!-- imeime → 線上預約（主路）+ 屈臣氏/康是美（部分合作）-->
+<line x1="216" y1="446" x2="228" y2="548" stroke="#1A6B5C" stroke-width="1.2" marker-end="url(#arr-teal)"/>
+<path d="M230 446 L755 500 L755 548" fill="none" stroke="#1A6B5C" stroke-width="0.6" stroke-dasharray="4 3" marker-end="url(#arr-teal)"/>
+
+<!-- CHA CHA → 線上預約 + 屈臣氏 -->
+<path d="M435 446 L300 500 L228 548" fill="none" stroke="#C44B2B" stroke-width="0.8" marker-end="url(#arr-coral)"/>
+<path d="M445 446 L755 500 L755 548" fill="none" stroke="#C44B2B" stroke-width="0.5" stroke-dasharray="4 3" marker-end="url(#arr-coral)"/>
+
+<!-- BBLens → 線上預約 -->
+<path d="M605 446 L400 500 L240 548" fill="none" stroke="#C44B2B" stroke-width="0.8" marker-end="url(#arr-coral)"/>
+
+<!-- 研究視 → 線上預約 -->
+<path d="M775 446 L500 500 L250 548" fill="none" stroke="#C44B2B" stroke-width="0.8" marker-end="url(#arr-coral)"/>
+
+<!-- 通路層 → 消費者 -->
+<line x1="228" y1="604" x2="380" y2="720" stroke="#B8B2A8" stroke-width="0.8" marker-end="url(#arr-gray)"/>
+<line x1="500" y1="604" x2="500" y2="720" stroke="#C9A84C" stroke-width="1.2" marker-end="url(#arr-gold)"/>
+<line x1="720" y1="604" x2="580" y2="720" stroke="#B8B2A8" stroke-width="0.8" marker-end="url(#arr-gray)"/>
+
+</svg>
+</div>
+
+<div class="legend">
+  <div class="li"><div class="ld" style="background:#E8C87A;"></div>金可集團體系</div>
+  <div class="li"><div class="ld" style="background:#9DD4C5;"></div>imeime 相關</div>
+  <div class="li"><div class="ld" style="background:#F0C8BA;"></div>第一層競爭對手</div>
+  <div class="li"><div class="ld" style="background:#C8C4F0;"></div>多平台共同代理</div>
+  <div class="li"><div class="ld" style="background:#D8D3CA;"></div>其他品牌 / 通路</div>
+  <div class="li">
+    <svg width="36" height="10"><line x1="0" y1="5" x2="28" y2="5" stroke="#C9A84C" stroke-width="1.5" marker-end="url(#arr-gold-lg)"/></svg>
+    金可集團直接供應
+  </div>
+  <div class="li">
+    <svg width="36" height="10"><line x1="0" y1="5" x2="28" y2="5" stroke="#B8B2A8" stroke-width="1" stroke-dasharray="4 2"/></svg>
+    品牌授權 / 代理關係
+  </div>
+</div>
+
+<footer>adhackr · imeime 台灣隱形眼鏡產業生態圖 · 完整互動版 · 點擊節點查看詳情 · 2025</footer>
+
+<div id="panel">
+  <button id="panel-close" onclick="ecoClosePanel()">✕</button>
+  <div id="panel-tag">節點詳情</div>
+  <div id="panel-name">—</div>
+  <div id="panel-body">—</div>
+</div>
+</div>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div>© 2025 廣告顧問分析報告 · <span class="footer-brand">imeime 時尚彩瞳專門店</span></div>
+  <div>Meta Ads + Google Ads GA4 · 品牌陣容 · 競爭定位 · 2025.01 – 2026.04</div>
+</footer>
 
 <script>
-const REPORT_SECTIONS = [{"id": "performance", "title": "廣告執行成效總覽", "desc": "Meta Ads + Google Ads GA4 全渠道整合報告", "html": "<!DOCTYPE html>\n<html lang=\"zh-TW\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>imeime — 廣告執行成效總覽</title>\n<style>\n  :root {\n    --ink: #1a1814;\n    --ink-muted: #5a5750;\n    --ink-faint: #9a9690;\n    --cream: #f7f4ef;\n    --cream-dark: #ede9e2;\n    --border: #d8d3ca;\n    --teal: #1a6b5c;\n    --teal-light: #e1f0ec;\n    --teal-mid: #3d9e87;\n    --coral: #c44b2b;\n    --coral-light: #faeee9;\n    --coral-mid: #e07a5f;\n    --amber: #8b5e0a;\n    --amber-light: #fdf3e0;\n    --amber-mid: #d4900a;\n    --blue: #2b4fa8;\n    --blue-light: #e8edf8;\n    --blue-mid: #5b7fd4;\n    --purple: #5b3fa8;\n    --purple-light: #eeedf8;\n    --font-display: 'Georgia','Times New Roman',serif;\n    --font-body: 'Helvetica Neue','Arial',sans-serif;\n  }\n  * { box-sizing: border-box; margin: 0; padding: 0; }\n  body {\n    background: var(--cream);\n    color: var(--ink);\n    font-family: var(--font-body);\n    font-size: 14px;\n    line-height: 1.6;\n  }\n\n  /* ── Header ── */\n  .page-header {\n    background: var(--ink);\n    color: var(--cream);\n    padding: 48px 60px 40px;\n    border-bottom: 3px solid var(--amber-mid);\n  }\n  .header-label {\n    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;\n    color: var(--amber-mid); margin-bottom: 12px; font-weight: 500;\n  }\n  .header-title {\n    font-family: var(--font-display); font-size: 36px; font-weight: normal;\n    line-height: 1.2; margin-bottom: 10px;\n  }\n  .header-sub { font-size: 13px; color: #a09a90; letter-spacing: 0.03em; }\n  .header-meta {\n    display: flex; gap: 32px; margin-top: 28px;\n    padding-top: 24px; border-top: 1px solid #333; flex-wrap: wrap;\n  }\n  .meta-item { font-size: 12px; color: #888; }\n  .meta-item strong { color: var(--cream); font-weight: 500; display: block; font-size: 14px; margin-bottom: 2px; }\n\n  /* ── Main ── */\n  .main { padding: 48px 60px 80px; }\n\n  /* ── Section title ── */\n  .sec-label {\n    font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;\n    color: var(--ink-faint); margin-bottom: 6px; margin-top: 48px;\n  }\n  .sec-label:first-child { margin-top: 0; }\n  .sec-title {\n    font-family: var(--font-display); font-size: 22px; font-weight: normal;\n    margin-bottom: 24px; padding-bottom: 12px;\n    border-bottom: 1px solid var(--border);\n  }\n\n  /* ── KPI Cards ── */\n  .kpi-grid {\n    display: grid;\n    grid-template-columns: repeat(4, 1fr);\n    gap: 16px;\n    margin-bottom: 16px;\n  }\n  .kpi-grid-3 { grid-template-columns: repeat(3, 1fr); }\n  .kpi-grid-2 { grid-template-columns: repeat(2, 1fr); }\n\n  .kpi-card {\n    background: white;\n    border: 1px solid var(--border);\n    border-radius: 8px;\n    padding: 20px 22px;\n    position: relative;\n    overflow: hidden;\n  }\n  .kpi-card::after {\n    content: '';\n    position: absolute;\n    bottom: 0; left: 0; right: 0;\n    height: 3px;\n  }\n  .kpi-card.teal::after { background: var(--teal-mid); }\n  .kpi-card.coral::after { background: var(--coral-mid); }\n  .kpi-card.amber::after { background: var(--amber-mid); }\n  .kpi-card.blue::after { background: var(--blue-mid); }\n  .kpi-card.purple::after { background: #7c6fcd; }\n  .kpi-card.gray::after { background: var(--ink-faint); }\n\n  .kpi-label {\n    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;\n    color: var(--ink-faint); margin-bottom: 8px; font-weight: 500;\n  }\n  .kpi-value {\n    font-family: var(--font-display); font-size: 28px; font-weight: normal;\n    line-height: 1; margin-bottom: 4px; color: var(--ink);\n  }\n  .kpi-value.lg { font-size: 22px; }\n  .kpi-sub { font-size: 11px; color: var(--ink-faint); }\n  .kpi-badge {\n    display: inline-block; margin-top: 8px;\n    font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 500;\n  }\n  .kpi-badge.good { background: var(--teal-light); color: var(--teal); }\n  .kpi-badge.warn { background: var(--amber-light); color: var(--amber); }\n  .kpi-badge.alert { background: var(--coral-light); color: var(--coral); }\n\n  /* ── ROAS Tier Bar Chart ── */\n  .chart-wrap {\n    background: white; border: 1px solid var(--border);\n    border-radius: 8px; padding: 24px 28px;\n  }\n  .chart-title { font-size: 13px; font-weight: 500; margin-bottom: 20px; color: var(--ink); }\n\n  .bar-row {\n    display: flex; align-items: center; gap: 14px;\n    margin-bottom: 12px;\n  }\n  .bar-label { width: 56px; font-size: 11px; color: var(--ink-muted); flex-shrink: 0; text-align: right; }\n  .bar-track { flex: 1; height: 22px; background: var(--cream-dark); border-radius: 4px; overflow: hidden; position: relative; }\n  .bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 10px; transition: width 0.8s ease; }\n  .bar-fill span { font-size: 10px; font-weight: 500; white-space: nowrap; }\n  .bar-meta { width: 110px; font-size: 10px; color: var(--ink-faint); flex-shrink: 0; }\n\n  /* ── Top 5 Table ── */\n  .perf-table { width: 100%; border-collapse: collapse; }\n  .perf-table th {\n    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;\n    color: var(--ink-faint); font-weight: 500; padding: 10px 14px;\n    border-bottom: 1px solid var(--border); text-align: left;\n  }\n  .perf-table th:not(:first-child) { text-align: right; }\n  .perf-table td {\n    padding: 12px 14px; font-size: 12px; color: var(--ink-muted);\n    border-bottom: 1px solid var(--cream-dark);\n  }\n  .perf-table td:first-child { color: var(--ink); font-weight: 500; font-size: 13px; }\n  .perf-table td:not(:first-child) { text-align: right; }\n  .perf-table tr:last-child td { border-bottom: none; }\n  .perf-table tr:hover td { background: var(--cream); }\n  .roas-pill {\n    display: inline-block; padding: 2px 9px; border-radius: 10px;\n    font-size: 11px; font-weight: 500;\n  }\n  .roas-high { background: var(--teal-light); color: var(--teal); }\n  .roas-mid { background: var(--amber-light); color: var(--amber); }\n  .roas-low { background: var(--coral-light); color: var(--coral); }\n\n  /* ── Two col layout ── */\n  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }\n  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }\n\n  /* ── Analysis block ── */\n  .analysis-wrap {\n    background: white; border: 1px solid var(--border);\n    border-radius: 8px; overflow: hidden;\n  }\n  .analysis-header {\n    background: var(--ink); color: var(--cream);\n    padding: 14px 24px; font-size: 11px;\n    letter-spacing: 0.15em; text-transform: uppercase; font-weight: 500;\n  }\n  .analysis-body { padding: 28px 28px 24px; }\n\n  .insight-item {\n    padding: 16px 0;\n    border-bottom: 1px solid var(--cream-dark);\n    display: grid;\n    grid-template-columns: 140px 1fr;\n    gap: 20px;\n    align-start: start;\n  }\n  .insight-item:last-child { border-bottom: none; padding-bottom: 0; }\n  .insight-tag {\n    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;\n    font-weight: 600; padding-top: 2px;\n  }\n  .insight-tag.strength { color: var(--teal); }\n  .insight-tag.risk { color: var(--coral); }\n  .insight-tag.opp { color: var(--blue); }\n  .insight-tag.action { color: var(--amber); }\n  .insight-text { font-size: 13px; color: var(--ink-muted); line-height: 1.75; }\n  .insight-text strong { color: var(--ink); font-weight: 500; }\n\n  /* ── Google compare ── */\n  .platform-compare {\n    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;\n  }\n  .platform-card {\n    background: white; border: 1px solid var(--border);\n    border-radius: 8px; overflow: hidden;\n  }\n  .pc-header {\n    padding: 14px 20px; font-size: 13px; font-weight: 500;\n    border-bottom: 1px solid var(--border);\n    display: flex; justify-content: space-between; align-items: center;\n  }\n  .pc-header .badge {\n    font-size: 10px; padding: 3px 10px; border-radius: 10px; font-weight: 500;\n  }\n  .badge-meta { background: var(--blue-light); color: var(--blue); }\n  .badge-google { background: var(--amber-light); color: var(--amber); }\n  .pc-body { padding: 16px 20px; }\n  .pc-row {\n    display: flex; justify-content: space-between; align-items: baseline;\n    padding: 7px 0; border-bottom: 1px solid var(--cream-dark);\n    font-size: 12px;\n  }\n  .pc-row:last-child { border-bottom: none; }\n  .pc-key { color: var(--ink-faint); }\n  .pc-val { font-weight: 500; color: var(--ink); font-family: var(--font-display); font-size: 14px; }\n\n  /* ── Disclaimer ── */\n  .disclaimer {\n    background: var(--amber-light); border: 1px solid #e8c87a;\n    border-radius: 6px; padding: 12px 18px; margin-top: 16px;\n    font-size: 11px; color: var(--amber); line-height: 1.7;\n  }\n  .disclaimer strong { font-weight: 600; }\n\n  /* ── Footer ── */\n  footer {\n    background: var(--ink); color: #666;\n    padding: 24px 60px; font-size: 11px;\n    display: flex; justify-content: space-between; align-items: center;\n  }\n  .footer-brand { color: var(--amber-mid); font-weight: 600; }\n\n  @media (max-width: 900px) {\n    .page-header, .main, footer { padding-left: 24px; padding-right: 24px; }\n    .kpi-grid { grid-template-columns: repeat(2, 1fr); }\n    .kpi-grid-3 { grid-template-columns: repeat(2, 1fr); }\n    .two-col, .three-col, .platform-compare { grid-template-columns: 1fr; }\n    .insight-item { grid-template-columns: 1fr; gap: 4px; }\n  }\n</style>\n</head>\n<body>\n\n<!-- Header -->\n<header class=\"page-header\">\n  <div class=\"header-label\">廣告顧問分析報告 · imeime 時尚彩瞳專門店</div>\n  <div class=\"header-title\">廣告執行成效總覽</div>\n  <div class=\"header-sub\">Meta Ads + Google Ads GA4 · 全渠道整合報告</div>\n  <div class=\"header-meta\">\n    <div class=\"meta-item\"><strong>資料期間</strong>2025.01.01 – 2026.04.21</div>\n    <div class=\"meta-item\"><strong>分析渠道</strong>Meta Ads · Google Ads GA4</div>\n    <div class=\"meta-item\"><strong>活動總數</strong>88 組（Meta）· 24 組（Google）</div>\n    <div class=\"meta-item\"><strong>報告性質</strong>廣告顧問內部分析用途</div>\n  </div>\n</header>\n\n<div class=\"main\">\n\n  <!-- ① Meta 核心數據 -->\n  <div class=\"sec-label\">Section 01 · Meta Ads</div>\n  <div class=\"sec-title\">Meta 廣告核心指標</div>\n\n  <div class=\"kpi-grid\" style=\"margin-bottom:16px;\">\n    <div class=\"kpi-card teal\">\n      <div class=\"kpi-label\">總花費</div>\n      <div class=\"kpi-value\">$1,810,854</div>\n      <div class=\"kpi-sub\">TWD · 全年 88 組活動</div>\n    </div>\n    <div class=\"kpi-card amber\">\n      <div class=\"kpi-label\">推算歸因營收</div>\n      <div class=\"kpi-value\">$25,665,299</div>\n      <div class=\"kpi-sub\">花費 × 各活動 ROAS 加總</div>\n      <div class=\"kpi-badge warn\">歸因數字，非實際營收</div>\n    </div>\n    <div class=\"kpi-card coral\">\n      <div class=\"kpi-label\">整體 ROAS</div>\n      <div class=\"kpi-value\">14.17x</div>\n      <div class=\"kpi-sub\">加權平均（逐活動計算）</div>\n      <div class=\"kpi-badge good\">高效水位</div>\n    </div>\n    <div class=\"kpi-card blue\">\n      <div class=\"kpi-label\">整體 CPA</div>\n      <div class=\"kpi-value\">NT$102</div>\n      <div class=\"kpi-sub\">每次購買成本（中位數 $119）</div>\n      <div class=\"kpi-badge good\">低於均值</div>\n    </div>\n  </div>\n\n  <div class=\"kpi-grid\" style=\"margin-bottom:32px;\">\n    <div class=\"kpi-card gray\">\n      <div class=\"kpi-label\">總購買次數</div>\n      <div class=\"kpi-value\">17,719</div>\n      <div class=\"kpi-sub\">Meta 歸因購買</div>\n    </div>\n    <div class=\"kpi-card gray\">\n      <div class=\"kpi-label\">總曝光次數</div>\n      <div class=\"kpi-value lg\">22,038,696</div>\n      <div class=\"kpi-sub\">平均 CPM NT$94.7</div>\n    </div>\n    <div class=\"kpi-card gray\">\n      <div class=\"kpi-label\">總觸及人數</div>\n      <div class=\"kpi-value lg\">5,634,244</div>\n      <div class=\"kpi-sub\">不重複觸及</div>\n    </div>\n    <div class=\"kpi-card gray\">\n      <div class=\"kpi-label\">轉換型活動佔比</div>\n      <div class=\"kpi-value\">93.5%</div>\n      <div class=\"kpi-sub\">花費集中於購買轉換目標</div>\n    </div>\n  </div>\n\n  <!-- ROAS 分層 + Top5 -->\n  <div class=\"two-col\" style=\"margin-bottom:48px;\">\n\n    <div class=\"chart-wrap\">\n      <div class=\"chart-title\">ROAS 分層 · 花費分布</div>\n\n      <div class=\"bar-row\">\n        <div class=\"bar-label\">&gt;20x</div>\n        <div class=\"bar-track\">\n          <div class=\"bar-fill\" style=\"width:11%;background:var(--teal-mid);\">\n            <span style=\"color:white;\">12 組</span>\n          </div>\n        </div>\n        <div class=\"bar-meta\">NT$199,315 · 11%</div>\n      </div>\n      <div class=\"bar-row\">\n        <div class=\"bar-label\">15–20x</div>\n        <div class=\"bar-track\">\n          <div class=\"bar-fill\" style=\"width:31%;background:#5b9e8a;\">\n            <span style=\"color:white;\">13 組</span>\n          </div>\n        </div>\n        <div class=\"bar-meta\">NT$561,159 · 31%</div>\n      </div>\n      <div class=\"bar-row\">\n        <div class=\"bar-label\">10–15x</div>\n        <div class=\"bar-track\">\n          <div class=\"bar-fill\" style=\"width:33.4%;background:var(--amber-mid);\">\n            <span style=\"color:white;\">16 組</span>\n          </div>\n        </div>\n        <div class=\"bar-meta\">NT$604,986 · 33.4%</div>\n      </div>\n      <div class=\"bar-row\">\n        <div class=\"bar-label\">5–10x</div>\n        <div class=\"bar-track\">\n          <div class=\"bar-fill\" style=\"width:17.3%;background:#c48a3a;\">\n            <span style=\"color:white;\">21 組</span>\n          </div>\n        </div>\n        <div class=\"bar-meta\">NT$313,318 · 17.3%</div>\n      </div>\n      <div class=\"bar-row\">\n        <div class=\"bar-label\">&lt;5x</div>\n        <div class=\"bar-track\">\n          <div class=\"bar-fill\" style=\"width:7.2%;background:var(--coral-mid);\">\n            <span style=\"color:white;\">23 組</span>\n          </div>\n        </div>\n        <div class=\"bar-meta\">NT$129,571 · 7.2%</div>\n      </div>\n\n      <div style=\"margin-top:16px;padding-top:12px;border-top:1px solid var(--cream-dark);font-size:11px;color:var(--ink-faint);\">\n        花費主力集中在 10–20x 區間，合計佔 64.4%，整體效率結構健康\n      </div>\n    </div>\n\n    <div class=\"chart-wrap\">\n      <div class=\"chart-title\">Top 5 活動 · 花費與成效</div>\n      <table class=\"perf-table\">\n        <thead>\n          <tr>\n            <th>活動名稱</th>\n            <th>花費</th>\n            <th>ROAS</th>\n            <th>CPA</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr>\n            <td>Lens++ 推廣</td>\n            <td>$230,133</td>\n            <td><span class=\"roas-pill roas-high\">17.5x</span></td>\n            <td>$86</td>\n          </tr>\n          <tr>\n            <td>QUINLIVAN 銷售</td>\n            <td>$225,366</td>\n            <td><span class=\"roas-pill roas-high\">18.4x</span></td>\n            <td>$94</td>\n          </tr>\n          <tr>\n            <td>TeAmo 特惠價</td>\n            <td>$161,327</td>\n            <td><span class=\"roas-pill roas-mid\">14.0x</span></td>\n            <td>$108</td>\n          </tr>\n          <tr>\n            <td>7月福利中心</td>\n            <td>$125,404</td>\n            <td><span class=\"roas-pill roas-high\">22.3x</span></td>\n            <td>$61</td>\n          </tr>\n          <tr>\n            <td>妝美堂晶瞳</td>\n            <td>$111,827</td>\n            <td><span class=\"roas-pill roas-mid\">13.4x</span></td>\n            <td>$119</td>\n          </tr>\n        </tbody>\n      </table>\n      <div style=\"margin-top:12px;font-size:11px;color:var(--ink-faint);\">\n        Top 5 合計花費 NT$854,057，佔總花費 47.2%\n      </div>\n    </div>\n\n  </div>\n\n  <!-- ② Google Ads -->\n  <div class=\"sec-label\">Section 02 · Google Ads GA4</div>\n  <div class=\"sec-title\">Google Ads 流量與收益概況</div>\n\n  <div class=\"kpi-grid kpi-grid-3\" style=\"margin-bottom:16px;\">\n    <div class=\"kpi-card teal\">\n      <div class=\"kpi-label\">GA4 帶入總收益</div>\n      <div class=\"kpi-value lg\">$9,956,668</div>\n      <div class=\"kpi-sub\">TWD · 全渠道 GA4 歸因</div>\n      <div class=\"kpi-badge good\">含跨渠道輔助轉換</div>\n    </div>\n    <div class=\"kpi-card amber\">\n      <div class=\"kpi-label\">總工作階段</div>\n      <div class=\"kpi-value\">304,087</div>\n      <div class=\"kpi-sub\">整體參與度 97.06%</div>\n    </div>\n    <div class=\"kpi-card blue\">\n      <div class=\"kpi-label\">總活躍使用者</div>\n      <div class=\"kpi-value\">218,158</div>\n      <div class=\"kpi-sub\">平均參與時間 1分23秒</div>\n    </div>\n  </div>\n\n  <div class=\"platform-compare\" style=\"margin-bottom:16px;\">\n    <div class=\"platform-card\">\n      <div class=\"pc-header\">\n        品牌字 <span class=\"badge badge-meta\">最高效活動</span>\n      </div>\n      <div class=\"pc-body\">\n        <div class=\"pc-row\"><span class=\"pc-key\">工作階段</span><span class=\"pc-val\">63,196</span></div>\n        <div class=\"pc-row\"><span class=\"pc-key\">工作階段佔比</span><span class=\"pc-val\">20.8%</span></div>\n        <div class=\"pc-row\"><span class=\"pc-key\">帶入收益</span><span class=\"pc-val\">$5,077,982</span></div>\n        <div class=\"pc-row\"><span class=\"pc-key\">收益佔比</span><span class=\"pc-val\">51.0%</span></div>\n        <div class=\"pc-row\"><span class=\"pc-key\">每工作階段收益</span><span class=\"pc-val\">NT$80</span></div>\n        <div class=\"pc-row\"><span class=\"pc-key\">平均參與時間</span><span class=\"pc-val\">1分58秒</span></div>\n      </div>\n    </div>\n    <div class=\"platform-card\">\n      <div class=\"pc-header\">\n        PMax <span class=\"badge badge-google\">新客開發</span>\n      </div>\n      <div class=\"pc-body\">\n        <div class=\"pc-row\"><span class=\"pc-key\">工作階段</span><span class=\"pc-val\">210,732</span></div>\n        <div class=\"pc-row\"><span class=\"pc-key\">工作階段佔比</span><span class=\"pc-val\">69.3%</span></div>\n        <div class=\"pc-row\"><span class=\"pc-key\">帶入收益</span><span class=\"pc-val\">$4,111,161</span></div>\n        <div class=\"pc-row\"><span class=\"pc-key\">收益佔比</span><span class=\"pc-val\">41.3%</span></div>\n        <div class=\"pc-row\"><span class=\"pc-key\">每工作階段收益</span><span class=\"pc-val\">NT$20</span></div>\n        <div class=\"pc-row\"><span class=\"pc-key\">平均參與時間</span><span class=\"pc-val\">1分12秒</span></div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"disclaimer\">\n    <strong>歸因說明：</strong>品牌字每工作階段收益（NT$80）vs PMax（NT$20）的差距，反映的是受眾意向程度差異，而非廣告效率高低。品牌字截攔高意向已知品牌搜尋者；PMax 主力開發從未聽過品牌的新客，兩者不應以相同標準比較。\n  </div>\n\n  <!-- ③ 文字分析 -->\n  <div class=\"sec-label\" style=\"margin-top:48px;\">Section 03 · Analysis</div>\n  <div class=\"sec-title\">成效解讀與操盤建議</div>\n\n  <div class=\"analysis-wrap\">\n    <div class=\"analysis-header\">關鍵洞察與建議摘要</div>\n    <div class=\"analysis-body\">\n\n      <div class=\"insight-item\">\n        <div class=\"insight-tag strength\">優勢確認</div>\n        <div class=\"insight-text\">\n          整體 Meta ROAS <strong>14.17x</strong>，主力預算（64.4%）集中在 10–20x 效率區間，花費結構健康。7月福利中心（ROAS 22.3x，CPA NT$61）與 QUINLIVAN（ROAS 18.4x）是全年表現最穩定的兩組核心活動，建議作為後續操盤的對照基準。\n        </div>\n      </div>\n\n      <div class=\"insight-item\">\n        <div class=\"insight-tag strength\">節點效益</div>\n        <div class=\"insight-text\">\n          免運日系列活動 ROAS 介於 <strong>35–43x</strong>，遠高於整體均值，是全年效率峰值。但目前每檔預算僅 NT$700–NT$1,000，嚴重低配。節點促銷活動的預算彈性應提升至 NT$3,000–NT$5,000，才能真正發揮高效時段的轉換爆發力。\n        </div>\n      </div>\n\n      <div class=\"insight-item\">\n        <div class=\"insight-tag risk\">風險警示</div>\n        <div class=\"insight-text\">\n          <strong>23 組活動 ROAS 低於 5x</strong>，合計花費 NT$129,571（7.2%）。這批活動以義務推廣品牌為主（PienAge 2.4x、Candy Magic 新品 2.4x、十方 2.9x），建議設定月預算上限並改為「定頻輪播」模式，而非每月重建活動浪費學習期。\n        </div>\n      </div>\n\n      <div class=\"insight-item\">\n        <div class=\"insight-tag risk\">結構問題</div>\n        <div class=\"insight-text\">\n          Google Ads 品牌字貢獻 <strong>51% 收益</strong>，但 PMax 可能在搜尋版位搶食品牌字流量，形成自我競標。建議在 PMax 活動層級加入品牌關鍵字排除清單（imeime 及所有常見拼法），確保高意向品牌搜尋流量由品牌字低成本截攔。\n        </div>\n      </div>\n\n      <div class=\"insight-item\">\n        <div class=\"insight-tag opp\">機會點</div>\n        <div class=\"insight-text\">\n          香港市場每工作階段收益 <strong>NT$97</strong>（品牌字），平均參與時間 3分28秒，均遠超台灣均值，顯示進站用戶購買意向極高。目前香港廣告規模僅 364 工作階段，屬於嚴重低配市場。建議以月為單位小規模擴張，優先佈局品牌字 + QuinLivan + 星歐三個品牌。\n        </div>\n      </div>\n\n      <div class=\"insight-item\">\n        <div class=\"insight-tag action\">立即執行</div>\n        <div class=\"insight-text\">\n          以下三件事執行成本低、效益直接，建議本週內完成：<strong>①</strong> PMax 加入品牌字排除清單；<strong>②</strong> 7月福利中心日預算從 NT$1,000 漸增至 NT$2,000–NT$3,000（每週 +20%）；<strong>③</strong> 免運日下次活動預設總預算 NT$3,000，活動前 48 小時建立以保留學習期。\n        </div>\n      </div>\n\n    </div>\n  </div>\n\n  <div class=\"disclaimer\" style=\"margin-top:20px;margin-bottom:0;\">\n    <strong>數字說明：</strong>Meta 推算歸因營收（NT$25,665,299）為各活動「花費 × ROAS」加總，屬 Meta 平台歸因數字，不等同實際訂單營收。Google Ads 收益（NT$9,956,668）來自 GA4 工作階段報表，兩者存在跨渠道重複歸因，實際總營收請以後台訂單數據為準。\n  </div>\n\n</div>\n\n<footer>\n  <div>© 2025 廣告顧問分析報告 · <span class=\"footer-brand\">imeime 時尚彩瞳專門店</span></div>\n  <div>Meta Ads + Google Ads GA4 · 2025.01 – 2026.04</div>\n</footer>\n\n\n<script>\n(function(){\n  function sendHeight(){\n    var h = Math.max(\n      document.body ? document.body.scrollHeight : 0,\n      document.documentElement ? document.documentElement.scrollHeight : 0\n    );\n    parent.postMessage({type:'report-frame-height', id: window.frameElement ? window.frameElement.dataset.frameId : '', height:h}, '*');\n  }\n  window.addEventListener('load', function(){ setTimeout(sendHeight, 80); setTimeout(sendHeight, 500); });\n  window.addEventListener('resize', sendHeight);\n  if ('ResizeObserver' in window) {\n    var ro = new ResizeObserver(function(){ sendHeight(); });\n    window.addEventListener('load', function(){\n      if (document.body) ro.observe(document.body);\n      if (document.documentElement) ro.observe(document.documentElement);\n    });\n  } else {\n    setInterval(sendHeight, 800);\n  }\n})();\n<\/script>\n\n</body>\n</html>\n"}, {"id": "brand", "title": "品牌陣容分析圖表", "desc": "品牌組織、強度梯隊與競品比較", "html": "<!DOCTYPE html>\n<html lang=\"zh-TW\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>imeime 品牌分析圖表</title>\n<style>\n  :root {\n    --ink: #1a1814;\n    --ink-muted: #5a5750;\n    --ink-faint: #9a9690;\n    --cream: #f7f4ef;\n    --cream-dark: #ede9e2;\n    --border: #d8d3ca;\n    --teal: #1a6b5c;\n    --teal-light: #e1f0ec;\n    --teal-mid: #3d9e87;\n    --coral: #c44b2b;\n    --coral-light: #faeee9;\n    --coral-mid: #e07a5f;\n    --blue: #2b4fa8;\n    --blue-light: #e8edf8;\n    --blue-mid: #5b7fd4;\n    --amber: #8b5e0a;\n    --amber-light: #fdf3e0;\n    --amber-mid: #d4900a;\n    --gray: #5a5750;\n    --gray-light: #f0eee9;\n    --purple: #5b3fa8;\n    --purple-light: #eeedf8;\n    --purple-mid: #8b7fd4;\n    --font-display: 'Georgia', 'Times New Roman', serif;\n    --font-body: 'Helvetica Neue', 'Arial', sans-serif;\n  }\n\n  * { box-sizing: border-box; margin: 0; padding: 0; }\n\n  body {\n    background: var(--cream);\n    color: var(--ink);\n    font-family: var(--font-body);\n    font-size: 14px;\n    line-height: 1.6;\n  }\n\n  /* Header */\n  .page-header {\n    background: var(--ink);\n    color: var(--cream);\n    padding: 48px 60px 40px;\n    border-bottom: 3px solid var(--amber-mid);\n  }\n  .header-label {\n    font-size: 11px;\n    letter-spacing: 0.2em;\n    text-transform: uppercase;\n    color: var(--amber-mid);\n    margin-bottom: 12px;\n    font-weight: 500;\n  }\n  .header-title {\n    font-family: var(--font-display);\n    font-size: 36px;\n    font-weight: normal;\n    line-height: 1.2;\n    margin-bottom: 10px;\n  }\n  .header-sub {\n    font-size: 13px;\n    color: #a09a90;\n    letter-spacing: 0.03em;\n  }\n  .header-meta {\n    display: flex;\n    gap: 32px;\n    margin-top: 28px;\n    padding-top: 24px;\n    border-top: 1px solid #333;\n  }\n  .meta-item { font-size: 12px; color: #888; }\n  .meta-item strong { color: var(--cream); font-weight: 500; display: block; font-size: 14px; margin-bottom: 2px; }\n\n  /* Nav tabs */\n  .nav-bar {\n    background: var(--ink);\n    padding: 0 60px;\n    display: flex;\n    gap: 0;\n    border-bottom: 1px solid #2a2a28;\n    position: sticky;\n    top: 0;\n    z-index: 100;\n  }\n  .nav-tab {\n    padding: 14px 24px;\n    font-size: 12px;\n    letter-spacing: 0.08em;\n    text-transform: uppercase;\n    color: #777;\n    cursor: pointer;\n    border-bottom: 2px solid transparent;\n    transition: all 0.2s;\n    user-select: none;\n    white-space: nowrap;\n  }\n  .nav-tab:hover { color: var(--cream); }\n  .nav-tab.active { color: var(--amber-mid); border-bottom-color: var(--amber-mid); }\n\n  /* Main content */\n  .main { padding: 40px 60px 80px; max-width: 1100px; }\n\n  .section { display: none; }\n  .section.active { display: block; }\n\n  /* Section headers */\n  .section-label {\n    font-size: 10px;\n    letter-spacing: 0.25em;\n    text-transform: uppercase;\n    color: var(--ink-faint);\n    margin-bottom: 8px;\n  }\n  .section-title {\n    font-family: var(--font-display);\n    font-size: 26px;\n    font-weight: normal;\n    margin-bottom: 6px;\n  }\n  .section-desc {\n    font-size: 13px;\n    color: var(--ink-muted);\n    margin-bottom: 36px;\n    max-width: 620px;\n    line-height: 1.7;\n  }\n\n  /* Legend */\n  .legend {\n    display: flex;\n    gap: 20px;\n    flex-wrap: wrap;\n    margin-bottom: 28px;\n    padding: 14px 20px;\n    background: var(--cream-dark);\n    border: 1px solid var(--border);\n    border-radius: 6px;\n  }\n  .legend-item {\n    display: flex;\n    align-items: center;\n    gap: 8px;\n    font-size: 12px;\n    color: var(--ink-muted);\n  }\n  .legend-dot {\n    width: 12px; height: 12px;\n    border-radius: 3px;\n    flex-shrink: 0;\n  }\n\n  /* ============================================================\n     CHART 1: Brand Hierarchy\n     ============================================================ */\n  .hierarchy-wrap {\n    background: white;\n    border: 1px solid var(--border);\n    border-radius: 10px;\n    padding: 36px;\n  }\n\n  /* Platform node */\n  .platform-node {\n    background: var(--purple);\n    color: white;\n    border-radius: 10px;\n    padding: 14px 28px;\n    text-align: center;\n    display: inline-block;\n    margin: 0 auto 36px;\n  }\n  .platform-node .pn-title { font-size: 15px; font-weight: 600; }\n  .platform-node .pn-sub { font-size: 11px; opacity: 0.75; margin-top: 2px; }\n\n  .platform-center { text-align: center; }\n\n  /* Category headers */\n  .cat-row {\n    display: grid;\n    grid-template-columns: 1fr 1fr 1fr;\n    gap: 16px;\n    margin-bottom: 20px;\n  }\n  .cat-pill {\n    text-align: center;\n    padding: 8px 16px;\n    border-radius: 20px;\n    font-size: 12px;\n    font-weight: 600;\n    letter-spacing: 0.03em;\n  }\n  .cat-pill.jp { background: var(--coral-light); color: var(--coral); }\n  .cat-pill.tw { background: var(--teal-light); color: var(--teal); }\n  .cat-pill.intl { background: var(--blue-light); color: var(--blue); }\n\n  /* Tier sections */\n  .tier-block {\n    border-radius: 8px;\n    margin-bottom: 16px;\n    overflow: hidden;\n    border: 1px solid var(--border);\n  }\n  .tier-header {\n    display: flex;\n    align-items: center;\n    gap: 12px;\n    padding: 10px 16px;\n    background: var(--cream-dark);\n    border-bottom: 1px solid var(--border);\n  }\n  .tier-badge {\n    width: 28px; height: 28px;\n    border-radius: 50%;\n    display: flex; align-items: center; justify-content: center;\n    font-size: 12px; font-weight: 700;\n    flex-shrink: 0;\n  }\n  .tier-a .tier-badge { background: var(--ink); color: var(--cream); }\n  .tier-b .tier-badge { background: var(--amber-mid); color: white; }\n  .tier-c .tier-badge { background: var(--ink-faint); color: white; }\n  .tier-d .tier-badge { background: var(--blue-mid); color: white; }\n\n  .tier-label { font-size: 13px; font-weight: 600; color: var(--ink); }\n  .tier-desc { font-size: 11px; color: var(--ink-faint); margin-left: auto; }\n\n  .tier-content {\n    padding: 16px;\n    display: grid;\n    grid-template-columns: 1fr 1fr 1fr;\n    gap: 12px;\n  }\n\n  /* Brand cards */\n  .brand-card {\n    border-radius: 7px;\n    padding: 12px 14px;\n    border: 1px solid transparent;\n    cursor: pointer;\n    transition: transform 0.15s, box-shadow 0.15s;\n  }\n  .brand-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.08); }\n  .brand-card.jp { background: var(--coral-light); border-color: #f0c8ba; }\n  .brand-card.tw { background: var(--teal-light); border-color: #b8ddd5; }\n  .brand-card.intl { background: var(--blue-light); border-color: #c8d4f0; }\n  .brand-card.gray { background: var(--gray-light); border-color: var(--border); }\n\n  .bc-name {\n    font-size: 13px;\n    font-weight: 600;\n    margin-bottom: 2px;\n  }\n  .bc-name.jp { color: var(--coral); }\n  .bc-name.tw { color: var(--teal); }\n  .bc-name.intl { color: var(--blue); }\n  .bc-name.gray { color: var(--gray); }\n  .bc-sub { font-size: 11px; color: var(--ink-muted); }\n  .bc-tag {\n    display: inline-block;\n    margin-top: 5px;\n    font-size: 10px;\n    padding: 2px 7px;\n    border-radius: 10px;\n    font-weight: 500;\n    letter-spacing: 0.03em;\n  }\n  .bc-tag.strong { background: var(--ink); color: var(--cream); }\n  .bc-tag.mid { background: var(--amber-light); color: var(--amber); border: 1px solid #e8c87a; }\n  .bc-tag.weak { background: var(--gray-light); color: var(--gray); border: 1px solid var(--border); }\n\n  /* Sub-brands row */\n  .sub-brand-row {\n    grid-column: 1 / -1;\n    display: flex;\n    gap: 10px;\n    flex-wrap: wrap;\n  }\n  .sub-brand-pill {\n    border-radius: 20px;\n    padding: 7px 14px;\n    font-size: 12px;\n    font-weight: 500;\n    border: 1px solid transparent;\n    display: flex;\n    flex-direction: column;\n    gap: 1px;\n  }\n  .sub-brand-pill span { font-size: 10px; font-weight: 400; opacity: 0.7; }\n  .sub-brand-pill.jp { background: var(--coral-light); border-color: #f0c8ba; color: var(--coral); }\n  .sub-brand-pill.tw { background: var(--teal-light); border-color: #b8ddd5; color: var(--teal); }\n\n  /* ============================================================\n     CHART 2: Comparison\n     ============================================================ */\n  .compare-wrap {\n    background: white;\n    border: 1px solid var(--border);\n    border-radius: 10px;\n    overflow: hidden;\n  }\n\n  .compare-header-row {\n    display: grid;\n    grid-template-columns: 1fr 1.1fr 1fr;\n    background: var(--ink);\n    color: var(--cream);\n  }\n  .ch-cell {\n    padding: 18px 20px;\n    text-align: center;\n  }\n  .ch-cell:nth-child(2) { background: var(--amber-mid); }\n  .ch-name { font-size: 16px; font-weight: 600; margin-bottom: 2px; }\n  .ch-sub { font-size: 11px; opacity: 0.65; }\n\n  /* Compare row */\n  .compare-tier-label {\n    display: grid;\n    grid-template-columns: 1fr 1.1fr 1fr;\n    background: var(--cream-dark);\n    border-top: 1px solid var(--border);\n    border-bottom: 1px solid var(--border);\n  }\n  .ctl-cell {\n    padding: 8px 20px;\n    font-size: 10px;\n    letter-spacing: 0.18em;\n    text-transform: uppercase;\n    color: var(--ink-faint);\n    font-weight: 600;\n  }\n  .ctl-cell:nth-child(2) {\n    background: var(--amber-light);\n    color: var(--amber);\n    text-align: center;\n  }\n\n  .compare-row {\n    display: grid;\n    grid-template-columns: 1fr 1.1fr 1fr;\n    border-bottom: 1px solid var(--cream-dark);\n  }\n  .compare-row:last-child { border-bottom: none; }\n  .cr-cell { padding: 12px 20px; }\n  .cr-cell:nth-child(2) {\n    background: #fffbf3;\n    border-left: 1px solid #ede3c8;\n    border-right: 1px solid #ede3c8;\n    padding: 12px 16px;\n  }\n\n  /* Brand chip */\n  .chip {\n    display: inline-flex;\n    align-items: center;\n    gap: 5px;\n    padding: 4px 10px;\n    border-radius: 14px;\n    font-size: 12px;\n    font-weight: 500;\n    margin: 3px 3px 3px 0;\n    cursor: pointer;\n    transition: opacity 0.15s;\n  }\n  .chip:hover { opacity: 0.8; }\n  .chip.teal { background: var(--teal-light); color: var(--teal); border: 1px solid #b8ddd5; }\n  .chip.coral { background: var(--coral-light); color: var(--coral); border: 1px solid #f0c8ba; }\n  .chip.amber { background: var(--amber-light); color: var(--amber); border: 1px solid #e8c87a; }\n  .chip.blue { background: var(--blue-light); color: var(--blue); border: 1px solid #c8d4f0; }\n  .chip.gray { background: var(--gray-light); color: var(--gray); border: 1px solid var(--border); }\n  .chip .dot {\n    width: 6px; height: 6px; border-radius: 50%;\n    flex-shrink: 0;\n  }\n  .chip.teal .dot { background: var(--teal); }\n  .chip.coral .dot { background: var(--coral); }\n  .chip.amber .dot { background: var(--amber-mid); }\n  .chip.blue .dot { background: var(--blue); }\n  .chip.gray .dot { background: var(--gray); }\n\n  /* Insights */\n  .insight-box {\n    margin-top: 28px;\n    border-radius: 8px;\n    overflow: hidden;\n    border: 1px solid var(--border);\n  }\n  .insight-header {\n    background: var(--ink);\n    color: var(--cream);\n    padding: 12px 20px;\n    font-size: 11px;\n    letter-spacing: 0.15em;\n    text-transform: uppercase;\n    font-weight: 600;\n  }\n  .insight-grid {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    gap: 0;\n  }\n  .insight-item {\n    padding: 16px 20px;\n    border-bottom: 1px solid var(--cream-dark);\n    border-right: 1px solid var(--cream-dark);\n  }\n  .insight-item:nth-child(even) { border-right: none; }\n  .insight-item:nth-last-child(-n+2) { border-bottom: none; }\n  .ii-label {\n    font-size: 10px;\n    font-weight: 600;\n    letter-spacing: 0.12em;\n    text-transform: uppercase;\n    margin-bottom: 5px;\n  }\n  .ii-label.risk { color: var(--coral); }\n  .ii-label.opp { color: var(--teal); }\n  .ii-label.neutral { color: var(--amber); }\n  .ii-text { font-size: 12px; color: var(--ink-muted); line-height: 1.6; }\n\n  /* Footer */\n  .page-footer {\n    background: var(--ink);\n    color: #666;\n    padding: 24px 60px;\n    font-size: 11px;\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n    margin-top: 0;\n  }\n  .footer-brand { color: var(--amber-mid); font-weight: 600; }\n\n  /* Responsive */\n  @media (max-width: 768px) {\n    .page-header, .nav-bar, .main, .page-footer { padding-left: 24px; padding-right: 24px; }\n    .tier-content { grid-template-columns: 1fr 1fr; }\n    .cat-row { grid-template-columns: 1fr 1fr 1fr; }\n    .compare-header-row, .compare-tier-label, .compare-row { grid-template-columns: 1fr; }\n    .insight-grid { grid-template-columns: 1fr; }\n    .insight-item { border-right: none; }\n    .header-meta { flex-direction: column; gap: 12px; }\n  }\n</style>\n</head>\n<body>\n\n<!-- Header -->\n<header class=\"page-header\">\n  <div class=\"header-label\">廣告顧問分析報告 · imeime 時尚彩瞳專門店</div>\n  <div class=\"header-title\">品牌陣容分析圖表</div>\n  <div class=\"header-sub\">Brand Portfolio Analysis · 2025 全年廣告數據整合</div>\n  <div class=\"header-meta\">\n    <div class=\"meta-item\"><strong>資料來源</strong>Meta Ads · Google Ads GA4</div>\n    <div class=\"meta-item\"><strong>分析期間</strong>2025.01.01 – 2026.04.21</div>\n    <div class=\"meta-item\"><strong>總花費</strong>NT$1,810,854</div>\n    <div class=\"meta-item\"><strong>品牌數量</strong>18+ 代理品牌</div>\n  </div>\n</header>\n\n<!-- Nav -->\n<nav class=\"nav-bar\">\n  <div class=\"nav-tab active\" onclick=\"showTab('hierarchy')\">圖一：品牌組織與強度梯隊</div>\n  <div class=\"nav-tab\" onclick=\"showTab('compare')\">圖二：imeime vs CHA CHA 競品比較</div>\n</nav>\n\n<!-- Main -->\n<main class=\"main\">\n\n  <!-- ======================== CHART 1 ======================== -->\n  <section id=\"hierarchy\" class=\"section active\">\n    <div class=\"section-label\">Chart 01 / Brand Hierarchy</div>\n    <div class=\"section-title\">品牌組織圖與市場強度梯隊</div>\n    <div class=\"section-desc\">依廣告 ROAS、市場知名度與商業角色，將 imeime 平台旗下代理品牌分為四個梯隊。顏色代表品牌來源地，梯隊代表市場競爭強度。</div>\n\n    <div class=\"legend\">\n      <div class=\"legend-item\"><div class=\"legend-dot\" style=\"background:var(--coral-mid)\"></div>日本品牌</div>\n      <div class=\"legend-item\"><div class=\"legend-dot\" style=\"background:var(--teal-mid)\"></div>台灣品牌</div>\n      <div class=\"legend-item\"><div class=\"legend-dot\" style=\"background:var(--blue-mid)\"></div>國際 / 明星品牌</div>\n      <div class=\"legend-item\"><div class=\"legend-dot\" style=\"background:var(--ink-faint)\"></div>培育中品牌</div>\n    </div>\n\n    <div class=\"hierarchy-wrap\">\n\n      <!-- Platform top -->\n      <div class=\"platform-center\">\n        <div class=\"platform-node\">\n          <div class=\"pn-title\">imeime 時尚彩瞳專門店</div>\n          <div class=\"pn-sub\">台灣多品牌代理電商平台 · 靚陽國際</div>\n        </div>\n      </div>\n\n      <!-- Category labels -->\n      <div class=\"cat-row\">\n        <div class=\"cat-pill jp\">日本品牌</div>\n        <div class=\"cat-pill tw\">台灣品牌</div>\n        <div class=\"cat-pill intl\">國際 / 明星品牌</div>\n      </div>\n\n      <!-- TIER A -->\n      <div class=\"tier-block tier-a\">\n        <div class=\"tier-header\">\n          <div class=\"tier-badge\">A</div>\n          <div class=\"tier-label\">流量引擎品牌</div>\n          <div class=\"tier-desc\">高知名度 · 強搜尋意圖 · 廣告高效 · ROAS 15x+</div>\n        </div>\n        <div class=\"tier-content\">\n          <!-- T-Garden group -->\n          <div class=\"sub-brand-row\">\n            <div class=\"brand-card jp\" style=\"flex:0 0 auto; min-width:140px;\">\n              <div class=\"bc-name jp\">T-Garden 緹花園</div>\n              <div class=\"bc-sub\">日本母品牌旗下三副牌</div>\n              <div class=\"bc-tag strong\">旗艦品牌</div>\n            </div>\n            <div class=\"sub-brand-pill jp\">FLANMY <span>佐佐木希代言 · ROAS 19.8x</span></div>\n            <div class=\"sub-brand-pill jp\">CRUUM <span>韓團 TUSKI 代言 · ROAS 20.2x</span></div>\n            <div class=\"sub-brand-pill jp\">Loveil <span>倖田來未監製</span></div>\n          </div>\n          <div class=\"brand-card tw\">\n            <div class=\"bc-name tw\">Lens++ 永暘光學</div>\n            <div class=\"bc-sub\">台灣製 · 矽水膠 · 抗藍光</div>\n            <div class=\"bc-tag strong\">花費最高 NT$230K</div>\n          </div>\n          <div class=\"brand-card intl\">\n            <div class=\"bc-name intl\">QUINLIVAN</div>\n            <div class=\"bc-sub\">昆凌自創品牌 · 微美瞳定位</div>\n            <div class=\"bc-tag strong\">ROAS 18.4x</div>\n          </div>\n        </div>\n      </div>\n\n      <!-- TIER B -->\n      <div class=\"tier-block tier-b\">\n        <div class=\"tier-header\">\n          <div class=\"tier-badge\">B</div>\n          <div class=\"tier-label\">穩定貢獻品牌</div>\n          <div class=\"tier-desc\">中等知名度 · 穩定回購 · ROAS 10–15x</div>\n        </div>\n        <div class=\"tier-content\">\n          <div class=\"brand-card jp\">\n            <div class=\"bc-name jp\">睛靈 SmartVision</div>\n            <div class=\"bc-sub\">台製 · 多國專利 · 視茂股份有限公司</div>\n            <div class=\"bc-tag mid\">花費 NT$164K</div>\n          </div>\n          <div class=\"brand-card jp\">\n            <div class=\"bc-name jp\">TeAmo</div>\n            <div class=\"bc-sub\">日本知名彩瞳品牌</div>\n            <div class=\"bc-tag mid\">ROAS 14.0x · NT$161K</div>\n          </div>\n          <div class=\"brand-card tw\">\n            <div class=\"bc-name tw\">星歐 LARGAN</div>\n            <div class=\"bc-sub\">台製 · 矽水膠月拋</div>\n            <div class=\"bc-tag mid\">ROAS 8–14x</div>\n          </div>\n          <!-- 妝美堂 -->\n          <div class=\"sub-brand-row\">\n            <div class=\"brand-card jp\" style=\"flex:0 0 auto; min-width:140px;\">\n              <div class=\"bc-name jp\">妝美堂系列</div>\n              <div class=\"bc-sub\">日本品牌組合 · 四副牌</div>\n              <div class=\"bc-tag mid\">合計 NT$190K</div>\n            </div>\n            <div class=\"sub-brand-pill jp\">晶瞳 CRYSTE <span>ROAS 13.4x</span></div>\n            <div class=\"sub-brand-pill jp\">佐美 Sami <span>ROAS 9.1x</span></div>\n            <div class=\"sub-brand-pill jp\">視妝美 Decorative <span>廣告效益中等</span></div>\n            <div class=\"sub-brand-pill jp\">PienAge <span>ROAS 2.4x ⚠️</span></div>\n          </div>\n          <div class=\"brand-card jp\">\n            <div class=\"bc-name jp\">魔幻糖果 Candy Magic</div>\n            <div class=\"bc-sub\">日系可愛風格彩瞳</div>\n            <div class=\"bc-tag mid\">ROAS 10.0x</div>\n          </div>\n          <div class=\"brand-card intl\">\n            <div class=\"bc-name intl\">Revia 蕾美</div>\n            <div class=\"bc-sub\">日本知名彩瞳品牌</div>\n            <div class=\"bc-tag mid\">ROAS 10.4x</div>\n          </div>\n          <div class=\"brand-card tw\">\n            <div class=\"bc-name tw\">timido 媞蜜多</div>\n            <div class=\"bc-sub\">台灣品牌</div>\n            <div class=\"bc-tag mid\">穩定維持</div>\n          </div>\n        </div>\n      </div>\n\n      <!-- TIER C -->\n      <div class=\"tier-block tier-c\">\n        <div class=\"tier-header\">\n          <div class=\"tier-badge\">C</div>\n          <div class=\"tier-label\">義務培育品牌</div>\n          <div class=\"tier-desc\">新興 / 小眾 · 合約推廣義務 · ROAS 2–8x</div>\n        </div>\n        <div class=\"tier-content\">\n          <div class=\"brand-card gray\">\n            <div class=\"bc-name gray\">mi tesoro 蜜緹</div>\n            <div class=\"bc-sub\">台灣品牌</div>\n            <div class=\"bc-tag weak\">每工作階段收益 NT$7</div>\n          </div>\n          <div class=\"brand-card gray\">\n            <div class=\"bc-name gray\">ENLIV 恩莉芙</div>\n            <div class=\"bc-sub\">台灣品牌</div>\n            <div class=\"bc-tag weak\">ROAS 4.1x</div>\n          </div>\n          <div class=\"brand-card gray\">\n            <div class=\"bc-name gray\">水見 MIZMI</div>\n            <div class=\"bc-sub\">台灣品牌</div>\n            <div class=\"bc-tag weak\">培育中</div>\n          </div>\n          <div class=\"brand-card gray\">\n            <div class=\"bc-name gray\">美若康 Miacare</div>\n            <div class=\"bc-sub\">台灣品牌</div>\n            <div class=\"bc-tag weak\">培育中</div>\n          </div>\n          <div class=\"brand-card gray\">\n            <div class=\"bc-name gray\">十方 BioVision</div>\n            <div class=\"bc-sub\">台灣品牌</div>\n            <div class=\"bc-tag weak\">ROAS 2.9x</div>\n          </div>\n        </div>\n      </div>\n\n      <!-- TIER D -->\n      <div class=\"tier-block tier-d\">\n        <div class=\"tier-header\">\n          <div class=\"tier-badge\" style=\"background:var(--blue-mid);\">D</div>\n          <div class=\"tier-label\">國際大廠（代理資格型）</div>\n          <div class=\"tier-desc\">品牌背書強 · ROAS 中等 · 代理資格具策略意義</div>\n        </div>\n        <div class=\"tier-content\">\n          <div class=\"brand-card intl\">\n            <div class=\"bc-name intl\">博士倫 Bausch+Lomb</div>\n            <div class=\"bc-sub\">國際大廠 · 透明片強</div>\n            <div class=\"bc-tag\" style=\"background:var(--blue-light);color:var(--blue);border:1px solid #c8d4f0;\">ROAS 10.4x</div>\n          </div>\n          <div class=\"brand-card intl\">\n            <div class=\"bc-name intl\">海昌 HYDRON</div>\n            <div class=\"bc-sub\">香港市場投放</div>\n            <div class=\"bc-tag\" style=\"background:var(--blue-light);color:var(--blue);border:1px solid #c8d4f0;\">港市佈局</div>\n          </div>\n          <div class=\"brand-card intl\">\n            <div class=\"bc-name intl\">睛靈 EOL 系列</div>\n            <div class=\"bc-sub\">香港市場 Smart Vision</div>\n            <div class=\"bc-tag\" style=\"background:var(--blue-light);color:var(--blue);border:1px solid #c8d4f0;\">港市佈局</div>\n          </div>\n        </div>\n      </div>\n\n    </div>\n  </section>\n\n  <!-- ======================== CHART 2 ======================== -->\n  <section id=\"compare\" class=\"section\">\n    <div class=\"section-label\">Chart 02 / Competitive Analysis</div>\n    <div class=\"section-title\">imeime vs CHA CHA 品牌陣容比較</div>\n    <div class=\"section-desc\">比較兩大台灣彩瞳電商平台的品牌重疊性與差異，中間欄為兩平台共同代理的品牌，左右欄為各自獨有品牌。重疊品牌代表兩平台在廣告競價上存在直接競爭。</div>\n\n    <div class=\"legend\">\n      <div class=\"legend-item\"><div class=\"legend-dot\" style=\"background:var(--teal-mid)\"></div>imeime 獨有</div>\n      <div class=\"legend-item\"><div class=\"legend-dot\" style=\"background:var(--amber-mid)\"></div>兩平台共同代理（競爭重疊）</div>\n      <div class=\"legend-item\"><div class=\"legend-dot\" style=\"background:var(--coral-mid)\"></div>CHA CHA 獨有</div>\n    </div>\n\n    <div class=\"compare-wrap\">\n\n      <!-- Header -->\n      <div class=\"compare-header-row\">\n        <div class=\"ch-cell\">\n          <div class=\"ch-name\">imeime 獨有</div>\n          <div class=\"ch-sub\">平台差異化品牌</div>\n        </div>\n        <div class=\"ch-cell\">\n          <div class=\"ch-name\">兩平台共同代理</div>\n          <div class=\"ch-sub\">⚠ 廣告競價重疊區</div>\n        </div>\n        <div class=\"ch-cell\">\n          <div class=\"ch-name\">CHA CHA 獨有</div>\n          <div class=\"ch-sub\">平台差異化品牌</div>\n        </div>\n      </div>\n\n      <!-- TIER A -->\n      <div class=\"compare-tier-label\">\n        <div class=\"ctl-cell\">A 梯｜流量引擎</div>\n        <div class=\"ctl-cell\">A 梯｜流量引擎</div>\n        <div class=\"ctl-cell\">A 梯｜流量引擎</div>\n      </div>\n      <div class=\"compare-row\">\n        <div class=\"cr-cell\">\n          <div class=\"chip teal\"><div class=\"dot\"></div>Lens++ 永暘光學</div>\n          <div style=\"font-size:11px;color:var(--ink-faint);margin-top:4px;\">矽水膠・抗藍光・台製<br>ROAS 17.5x · NT$230K</div>\n        </div>\n        <div class=\"cr-cell\">\n          <div class=\"chip amber\"><div class=\"dot\"></div>T-Garden 緹花園</div>\n          <div class=\"chip amber\"><div class=\"dot\"></div>FLANMY</div>\n          <div class=\"chip amber\"><div class=\"dot\"></div>CRUUM</div>\n          <div class=\"chip amber\"><div class=\"dot\"></div>Loveil</div>\n          <div class=\"chip amber\"><div class=\"dot\"></div>QUINLIVAN 昆凌</div>\n          <div style=\"font-size:11px;color:var(--amber);margin-top:6px;\">⚠ 以上為兩平台競價重疊核心品牌</div>\n        </div>\n        <div class=\"cr-cell\">\n          <div class=\"chip coral\"><div class=\"dot\"></div>OPT 圓瑞</div>\n          <div style=\"font-size:11px;color:var(--ink-faint);margin-top:4px;\">CHA CHA 長期熱銷 No.1<br>imeime 未代理</div>\n        </div>\n      </div>\n\n      <!-- TIER B -->\n      <div class=\"compare-tier-label\">\n        <div class=\"ctl-cell\">B 梯｜穩定貢獻</div>\n        <div class=\"ctl-cell\">B 梯｜穩定貢獻</div>\n        <div class=\"ctl-cell\">B 梯｜穩定貢獻</div>\n      </div>\n      <div class=\"compare-row\">\n        <div class=\"cr-cell\">\n          <div class=\"chip teal\"><div class=\"dot\"></div>睛靈 SmartVision</div>\n          <div class=\"chip teal\"><div class=\"dot\"></div>星歐 LARGAN</div>\n          <div class=\"chip teal\"><div class=\"dot\"></div>timido 媞蜜多</div>\n          <div style=\"font-size:11px;color:var(--ink-faint);margin-top:4px;\">台灣製品牌深度<br>為 imeime 相對壁壘</div>\n        </div>\n        <div class=\"cr-cell\">\n          <div class=\"chip amber\"><div class=\"dot\"></div>TeAmo</div>\n          <div class=\"chip amber\"><div class=\"dot\"></div>魔幻糖果 Candy Magic</div>\n          <div class=\"chip amber\"><div class=\"dot\"></div>Revia 蕾美</div>\n          <div class=\"chip amber\"><div class=\"dot\"></div>妝美堂系列</div>\n          <div class=\"chip amber\"><div class=\"dot\"></div>睛靈 SmartVision</div>\n          <div style=\"font-size:11px;color:var(--amber);margin-top:6px;\">⚠ 兩平台均有代理</div>\n        </div>\n        <div class=\"cr-cell\">\n          <div class=\"chip coral\"><div class=\"dot\"></div>LENS TOWN 梨之瞳</div>\n          <div class=\"chip coral\"><div class=\"dot\"></div>帝康 TICON</div>\n          <div class=\"chip coral\"><div class=\"dot\"></div>海昌 HYDRON</div>\n          <div class=\"chip coral\"><div class=\"dot\"></div>氧視加 Briomoist</div>\n          <div style=\"font-size:11px;color:var(--ink-faint);margin-top:4px;\">韓國品牌覆蓋較廣</div>\n        </div>\n      </div>\n\n      <!-- TIER C -->\n      <div class=\"compare-tier-label\">\n        <div class=\"ctl-cell\">C 梯｜義務培育</div>\n        <div class=\"ctl-cell\">C 梯｜義務培育</div>\n        <div class=\"ctl-cell\">C 梯｜義務培育</div>\n      </div>\n      <div class=\"compare-row\">\n        <div class=\"cr-cell\">\n          <div class=\"chip teal\"><div class=\"dot\"></div>mi tesoro 蜜緹</div>\n          <div class=\"chip teal\"><div class=\"dot\"></div>ENLIV 恩莉芙</div>\n          <div class=\"chip teal\"><div class=\"dot\"></div>十方 BioVision</div>\n        </div>\n        <div class=\"cr-cell\">\n          <div class=\"chip amber\"><div class=\"dot\"></div>美若康 Miacare</div>\n          <div class=\"chip amber\"><div class=\"dot\"></div>水見 MIZMI</div>\n        </div>\n        <div class=\"cr-cell\">\n          <div class=\"chip coral\"><div class=\"dot\"></div>QLENS（韓）</div>\n          <div class=\"chip coral\"><div class=\"dot\"></div>Olola / oddI's（韓）</div>\n          <div class=\"chip coral\"><div class=\"dot\"></div>艾美 ESEEVISION</div>\n        </div>\n      </div>\n\n      <!-- Intl -->\n      <div class=\"compare-tier-label\">\n        <div class=\"ctl-cell\">國際大廠</div>\n        <div class=\"ctl-cell\">國際大廠</div>\n        <div class=\"ctl-cell\">國際大廠</div>\n      </div>\n      <div class=\"compare-row\">\n        <div class=\"cr-cell\">\n          <div style=\"font-size:12px;color:var(--ink-faint);\">—</div>\n        </div>\n        <div class=\"cr-cell\">\n          <div class=\"chip amber\"><div class=\"dot\"></div>博士倫 Bausch+Lomb</div>\n        </div>\n        <div class=\"cr-cell\">\n          <div class=\"chip coral\"><div class=\"dot\"></div>嬌生 ACUVUE</div>\n          <div class=\"chip coral\"><div class=\"dot\"></div>愛爾康 Alcon</div>\n          <div class=\"chip coral\"><div class=\"dot\"></div>酷柏 CooperVision</div>\n          <div style=\"font-size:11px;color:var(--ink-faint);margin-top:4px;\">國際大廠陣容更完整</div>\n        </div>\n      </div>\n\n    </div>\n\n    <!-- Insights -->\n    <div class=\"insight-box\">\n      <div class=\"insight-header\">關鍵競爭洞察</div>\n      <div class=\"insight-grid\">\n        <div class=\"insight-item\">\n          <div class=\"ii-label risk\">⚠ 競爭風險</div>\n          <div class=\"ii-text\">T-Garden（FLANMY / CRUUM / Loveil）與 QUINLIVAN 是兩平台正面競爭的核心品牌，在 Meta 與 Google 同時競價同受眾，會互相推高 CPM。</div>\n        </div>\n        <div class=\"insight-item\">\n          <div class=\"ii-label opp\">✦ imeime 差異化優勢</div>\n          <div class=\"ii-text\">台灣製品牌陣容較深（Lens++、星歐、timido），這批品牌在廣告上不會遇到 CHA CHA 直接競價，屬於 imeime 的相對壁壘。</div>\n        </div>\n        <div class=\"insight-item\">\n          <div class=\"ii-label neutral\">◎ CHA CHA 明顯優勢</div>\n          <div class=\"ii-text\">韓國品牌覆蓋較廣（OPT 圓瑞為 CHA CHA 熱銷 No.1，imeime 未代理），國際大廠陣容更完整（ACUVUE、Alcon、CooperVision）。</div>\n        </div>\n        <div class=\"insight-item\">\n          <div class=\"ii-label opp\">✦ 廣告操盤含意</div>\n          <div class=\"ii-text\">重疊品牌廣告需注意雙渠道歸因重複問題；台灣製獨有品牌廣告競價壓力相對低，可適度提高預算測試效率上限。</div>\n        </div>\n      </div>\n    </div>\n\n  </section>\n\n</main>\n\n<!-- Footer -->\n<footer class=\"page-footer\">\n  <div>© 2025 廣告顧問分析報告 · <span class=\"footer-brand\">imeime 時尚彩瞳專門店</span></div>\n  <div>資料期間 2025.01 – 2026.04 · Meta Ads + Google Ads GA4</div>\n</footer>\n\n<script>\n  function showTab(id) {\n    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));\n    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));\n    document.getElementById(id).classList.add('active');\n    event.currentTarget.classList.add('active');\n  }\n<\/script>\n\n\n<script>\n(function(){\n  function sendHeight(){\n    var h = Math.max(\n      document.body ? document.body.scrollHeight : 0,\n      document.documentElement ? document.documentElement.scrollHeight : 0\n    );\n    parent.postMessage({type:'report-frame-height', id: window.frameElement ? window.frameElement.dataset.frameId : '', height:h}, '*');\n  }\n  window.addEventListener('load', function(){ setTimeout(sendHeight, 80); setTimeout(sendHeight, 500); });\n  window.addEventListener('resize', sendHeight);\n  if ('ResizeObserver' in window) {\n    var ro = new ResizeObserver(function(){ sendHeight(); });\n    window.addEventListener('load', function(){\n      if (document.body) ro.observe(document.body);\n      if (document.documentElement) ro.observe(document.documentElement);\n    });\n  } else {\n    setInterval(sendHeight, 800);\n  }\n})();\n<\/script>\n\n</body>\n</html>\n"}, {"id": "radar", "title": "競爭定位雷達圖", "desc": "imeime vs CHA CHA 四維度定位分析", "html": "<!DOCTYPE html>\n<html lang=\"zh-TW\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>imeime vs CHA CHA — 競爭定位分析</title>\n<style>\n  :root {\n    --ink: #1a1814;\n    --ink-muted: #5a5750;\n    --ink-faint: #9a9690;\n    --cream: #f7f4ef;\n    --cream-dark: #ede9e2;\n    --border: #d8d3ca;\n    --teal: #1a6b5c;\n    --teal-light: #e1f0ec;\n    --teal-mid: #3d9e87;\n    --coral: #c44b2b;\n    --coral-light: #faeee9;\n    --coral-mid: #e07a5f;\n    --amber: #8b5e0a;\n    --amber-light: #fdf3e0;\n    --amber-mid: #d4900a;\n    --font-display: 'Georgia', 'Times New Roman', serif;\n    --font-body: 'Helvetica Neue', 'Arial', sans-serif;\n  }\n\n  * { box-sizing: border-box; margin: 0; padding: 0; }\n\n  body {\n    background: var(--cream);\n    color: var(--ink);\n    font-family: var(--font-body);\n    font-size: 14px;\n    line-height: 1.6;\n    min-height: 100vh;\n    display: flex;\n    flex-direction: column;\n  }\n\n  /* Header */\n  .page-header {\n    background: var(--ink);\n    color: var(--cream);\n    padding: 48px 60px 40px;\n    border-bottom: 3px solid var(--amber-mid);\n  }\n  .header-label {\n    font-size: 11px;\n    letter-spacing: 0.2em;\n    text-transform: uppercase;\n    color: var(--amber-mid);\n    margin-bottom: 12px;\n    font-weight: 500;\n  }\n  .header-title {\n    font-family: var(--font-display);\n    font-size: 36px;\n    font-weight: normal;\n    line-height: 1.2;\n    margin-bottom: 10px;\n  }\n  .header-sub {\n    font-size: 13px;\n    color: #a09a90;\n    letter-spacing: 0.03em;\n  }\n  .header-meta {\n    display: flex;\n    gap: 32px;\n    margin-top: 28px;\n    padding-top: 24px;\n    border-top: 1px solid #333;\n    flex-wrap: wrap;\n  }\n  .meta-item { font-size: 12px; color: #888; }\n  .meta-item strong { color: var(--cream); font-weight: 500; display: block; font-size: 14px; margin-bottom: 2px; }\n\n  /* Main */\n  main {\n    flex: 1;\n    padding: 48px 60px;\n    display: grid;\n    grid-template-columns: 1fr 360px;\n    gap: 48px;\n    align-items: start;\n    max-width: 1100px;\n    width: 100%;\n  }\n\n  /* Radar wrap */\n  .radar-wrap {\n    background: white;\n    border: 1px solid var(--border);\n    border-radius: 10px;\n    padding: 36px;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n  }\n\n  .radar-title {\n    font-family: var(--font-display);\n    font-size: 16px;\n    font-weight: normal;\n    color: var(--ink);\n    margin-bottom: 6px;\n    align-self: flex-start;\n  }\n  .radar-sub {\n    font-size: 11px;\n    color: var(--ink-faint);\n    margin-bottom: 28px;\n    align-self: flex-start;\n  }\n\n  canvas#radar {\n    width: 100%;\n    max-width: 440px;\n    height: auto;\n  }\n\n  /* Legend */\n  .radar-legend {\n    display: flex;\n    gap: 24px;\n    margin-top: 20px;\n    align-self: center;\n  }\n  .rl-item {\n    display: flex;\n    align-items: center;\n    gap: 8px;\n    font-size: 12px;\n    color: var(--ink-muted);\n  }\n  .rl-dot {\n    width: 10px; height: 10px;\n    border-radius: 50%;\n    flex-shrink: 0;\n  }\n  .rl-dot.teal { background: var(--teal-mid); }\n  .rl-dot.coral { background: var(--coral-mid); }\n\n  .score-note {\n    margin-top: 12px;\n    font-size: 10px;\n    color: var(--ink-faint);\n    text-align: center;\n    letter-spacing: 0.03em;\n  }\n\n  /* Right panel */\n  .right-panel {\n    display: flex;\n    flex-direction: column;\n    gap: 16px;\n  }\n\n  /* Dimension cards */\n  .dim-card {\n    background: white;\n    border: 1px solid var(--border);\n    border-radius: 8px;\n    padding: 16px 18px;\n    position: relative;\n    overflow: hidden;\n  }\n  .dim-card::before {\n    content: '';\n    position: absolute;\n    left: 0; top: 0; bottom: 0;\n    width: 3px;\n    border-radius: 3px 0 0 3px;\n  }\n  .dim-card.d1::before { background: var(--amber-mid); }\n  .dim-card.d2::before { background: #7c6fcd; }\n  .dim-card.d3::before { background: #3b82c4; }\n  .dim-card.d4::before { background: var(--teal-mid); }\n\n  .dc-label {\n    font-size: 9px;\n    letter-spacing: 0.2em;\n    color: var(--ink-faint);\n    text-transform: uppercase;\n    margin-bottom: 4px;\n  }\n  .dc-name {\n    font-size: 13px;\n    font-weight: 500;\n    color: var(--ink);\n    margin-bottom: 10px;\n  }\n  .dc-scores { display: flex; flex-direction: column; gap: 6px; }\n  .dc-score-row { display: flex; align-items: center; gap: 10px; }\n  .dc-brand-name { font-size: 10px; color: var(--ink-muted); width: 56px; flex-shrink: 0; }\n  .dc-bar-wrap { flex: 1; height: 5px; background: var(--cream-dark); border-radius: 3px; overflow: hidden; }\n  .dc-bar { height: 100%; border-radius: 3px; }\n  .dc-bar.teal { background: var(--teal-mid); }\n  .dc-bar.coral { background: var(--coral-mid); }\n  .dc-val { font-size: 12px; width: 18px; text-align: right; flex-shrink: 0; font-weight: 500; }\n  .dc-val.teal { color: var(--teal); }\n  .dc-val.coral { color: var(--coral); }\n  .dc-note {\n    font-size: 11px;\n    color: var(--ink-faint);\n    margin-top: 8px;\n    line-height: 1.6;\n    border-top: 1px solid var(--cream-dark);\n    padding-top: 8px;\n  }\n\n  /* Summary */\n  .summary-box {\n    background: var(--ink);\n    border-radius: 8px;\n    padding: 20px 18px;\n    color: var(--cream);\n  }\n  .sb-title {\n    font-size: 9px;\n    letter-spacing: 0.2em;\n    color: #888;\n    text-transform: uppercase;\n    margin-bottom: 14px;\n  }\n  .sb-row {\n    display: flex;\n    justify-content: space-between;\n    align-items: baseline;\n    padding: 7px 0;\n    border-bottom: 1px solid #2a2a28;\n    font-size: 12px;\n  }\n  .sb-row:last-child { border-bottom: none; }\n  .sb-label { color: #888; }\n  .sb-val { font-family: var(--font-display); font-size: 15px; }\n  .sb-val.teal { color: var(--teal-mid); }\n  .sb-val.coral { color: var(--coral-mid); }\n  .sb-val.amber { color: var(--amber-mid); font-size: 12px; }\n\n  /* Footer */\n  footer {\n    background: var(--ink);\n    color: #666;\n    padding: 24px 60px;\n    font-size: 11px;\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n    margin-top: auto;\n  }\n  .footer-brand { color: var(--amber-mid); font-weight: 600; }\n\n  @media (max-width: 820px) {\n    main { grid-template-columns: 1fr; padding: 28px 24px; }\n    .page-header, footer { padding-left: 24px; padding-right: 24px; }\n    .header-meta { flex-direction: column; gap: 12px; }\n  }\n</style>\n</head>\n<body>\n\n<header class=\"page-header\">\n  <div class=\"header-label\">廣告顧問分析報告 · imeime 時尚彩瞳專門店</div>\n  <div class=\"header-title\">競爭定位分析</div>\n  <div class=\"header-sub\">Platform Positioning Analysis · imeime vs CHA CHA · 四維度雷達圖</div>\n  <div class=\"header-meta\">\n    <div class=\"meta-item\"><strong>比較對象</strong>imeime 時尚彩瞳 vs CHA CHA 美瞳</div>\n    <div class=\"meta-item\"><strong>評分維度</strong>品牌知名度・陣容深度・國際大廠・社群聲量</div>\n    <div class=\"meta-item\"><strong>資料基準</strong>公開品牌陣容 + 社群數據 · 2025</div>\n  </div>\n</header>\n\n<main>\n  <div class=\"radar-wrap\">\n    <div class=\"radar-title\">四維度競爭定位雷達圖</div>\n    <div class=\"radar-sub\">滿分 10 分 · 依公開可見資料評估</div>\n    <canvas id=\"radar\" width=\"480\" height=\"480\"></canvas>\n    <div class=\"radar-legend\">\n      <div class=\"rl-item\"><div class=\"rl-dot teal\"></div>imeime 時尚彩瞳</div>\n      <div class=\"rl-item\"><div class=\"rl-dot coral\"></div>CHA CHA 美瞳</div>\n    </div>\n    <div class=\"score-note\">* 評分基於公開品牌陣容、社群數據與市場調研，不涉及財務或廣告後台數據</div>\n  </div>\n\n  <div class=\"right-panel\">\n\n    <div class=\"dim-card d1\">\n      <div class=\"dc-label\">Dimension 01</div>\n      <div class=\"dc-name\">品牌知名度</div>\n      <div class=\"dc-scores\">\n        <div class=\"dc-score-row\">\n          <div class=\"dc-brand-name\">imeime</div>\n          <div class=\"dc-bar-wrap\"><div class=\"dc-bar teal\" style=\"width:60%\"></div></div>\n          <div class=\"dc-val teal\">6</div>\n        </div>\n        <div class=\"dc-score-row\">\n          <div class=\"dc-brand-name\">CHA CHA</div>\n          <div class=\"dc-bar-wrap\"><div class=\"dc-bar coral\" style=\"width:80%\"></div></div>\n          <div class=\"dc-val coral\">8</div>\n        </div>\n      </div>\n      <div class=\"dc-note\">CHA CHA 代理 OPT 圓瑞（長期熱銷 No.1）及 LENS TOWN 等高知名度韓牌，整體品牌知名度水位較高。</div>\n    </div>\n\n    <div class=\"dim-card d2\">\n      <div class=\"dc-label\">Dimension 02</div>\n      <div class=\"dc-name\">品牌陣容深度</div>\n      <div class=\"dc-scores\">\n        <div class=\"dc-score-row\">\n          <div class=\"dc-brand-name\">imeime</div>\n          <div class=\"dc-bar-wrap\"><div class=\"dc-bar teal\" style=\"width:70%\"></div></div>\n          <div class=\"dc-val teal\">7</div>\n        </div>\n        <div class=\"dc-score-row\">\n          <div class=\"dc-brand-name\">CHA CHA</div>\n          <div class=\"dc-bar-wrap\"><div class=\"dc-bar coral\" style=\"width:80%\"></div></div>\n          <div class=\"dc-val coral\">8</div>\n        </div>\n      </div>\n      <div class=\"dc-note\">兩者品牌數量相當，imeime 台灣製品牌較深（Lens++、睛靈、星歐），CHA CHA 韓國品牌覆蓋更廣。</div>\n    </div>\n\n    <div class=\"dim-card d3\">\n      <div class=\"dc-label\">Dimension 03</div>\n      <div class=\"dc-name\">國際大廠代理</div>\n      <div class=\"dc-scores\">\n        <div class=\"dc-score-row\">\n          <div class=\"dc-brand-name\">imeime</div>\n          <div class=\"dc-bar-wrap\"><div class=\"dc-bar teal\" style=\"width:40%\"></div></div>\n          <div class=\"dc-val teal\">4</div>\n        </div>\n        <div class=\"dc-score-row\">\n          <div class=\"dc-brand-name\">CHA CHA</div>\n          <div class=\"dc-bar-wrap\"><div class=\"dc-bar coral\" style=\"width:90%\"></div></div>\n          <div class=\"dc-val coral\">9</div>\n        </div>\n      </div>\n      <div class=\"dc-note\">CHA CHA 代理嬌生 ACUVUE、愛爾康、酷柏、博士倫全系列；imeime 僅有博士倫，為差距最大的維度。</div>\n    </div>\n\n    <div class=\"dim-card d4\">\n      <div class=\"dc-label\">Dimension 04</div>\n      <div class=\"dc-name\">社群聲量</div>\n      <div class=\"dc-scores\">\n        <div class=\"dc-score-row\">\n          <div class=\"dc-brand-name\">imeime</div>\n          <div class=\"dc-bar-wrap\"><div class=\"dc-bar teal\" style=\"width:40%\"></div></div>\n          <div class=\"dc-val teal\">4</div>\n        </div>\n        <div class=\"dc-score-row\">\n          <div class=\"dc-brand-name\">CHA CHA</div>\n          <div class=\"dc-bar-wrap\"><div class=\"dc-bar coral\" style=\"width:80%\"></div></div>\n          <div class=\"dc-val coral\">8</div>\n        </div>\n      </div>\n      <div class=\"dc-note\">imeime FB 13.8K / IG 11K；CHA CHA IG 30K，差距約 2.7 倍，有機觸及能力明顯偏弱。</div>\n    </div>\n\n    <div class=\"summary-box\">\n      <div class=\"sb-title\">總分對比</div>\n      <div class=\"sb-row\">\n        <div class=\"sb-label\">imeime 總分</div>\n        <div class=\"sb-val teal\">21 / 40</div>\n      </div>\n      <div class=\"sb-row\">\n        <div class=\"sb-label\">CHA CHA 總分</div>\n        <div class=\"sb-val coral\">33 / 40</div>\n      </div>\n      <div class=\"sb-row\">\n        <div class=\"sb-label\">imeime 相對優勢</div>\n        <div class=\"sb-val amber\">台灣製品牌深度</div>\n      </div>\n      <div class=\"sb-row\">\n        <div class=\"sb-label\">最大差距維度</div>\n        <div class=\"sb-val amber\">國際大廠代理</div>\n      </div>\n    </div>\n\n  </div>\n</main>\n\n<footer>\n  <div>© 2025 廣告顧問分析報告 · <span class=\"footer-brand\">imeime 時尚彩瞳專門店</span></div>\n  <div>資料期間 2025 · 公開品牌陣容 + 社群數據</div>\n</footer>\n\n<script>\nconst canvas = document.getElementById('radar');\nconst ctx = canvas.getContext('2d');\nconst W = 480, H = 480;\nconst cx = W / 2, cy = H / 2;\nconst R = 170;\nconst dims = ['品牌知名度', '品牌陣容深度', '國際大廠代理', '社群聲量'];\nconst imeime = [6, 7, 4, 4];\nconst chacha = [8, 8, 9, 8];\nconst MAX = 10;\nconst n = dims.length;\n\nfunction angleOf(i) {\n  return (Math.PI * 2 * i / n) - Math.PI / 2;\n}\nfunction pt(val, i) {\n  const a = angleOf(i);\n  const r = (val / MAX) * R;\n  return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) };\n}\n\n// Grid\nconst levels = 5;\nfor (let lv = 1; lv <= levels; lv++) {\n  const r = (lv / levels) * R;\n  ctx.beginPath();\n  for (let i = 0; i < n; i++) {\n    const a = angleOf(i);\n    const x = cx + r * Math.cos(a);\n    const y = cy + r * Math.sin(a);\n    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);\n  }\n  ctx.closePath();\n  ctx.strokeStyle = lv === levels ? '#d8d3ca' : '#ede9e2';\n  ctx.lineWidth = lv === levels ? 1 : 0.5;\n  ctx.stroke();\n\n  if (lv % 2 === 0) {\n    ctx.fillStyle = '#9a9690';\n    ctx.font = '9px Helvetica Neue, Arial, sans-serif';\n    ctx.textAlign = 'center';\n    ctx.fillText(lv * 2, cx + 4, cy - r + 11);\n  }\n}\n\n// Spokes\nfor (let i = 0; i < n; i++) {\n  const a = angleOf(i);\n  ctx.beginPath();\n  ctx.moveTo(cx, cy);\n  ctx.lineTo(cx + R * Math.cos(a), cy + R * Math.sin(a));\n  ctx.strokeStyle = '#d8d3ca';\n  ctx.lineWidth = 0.5;\n  ctx.stroke();\n}\n\n// CHA CHA area\nctx.beginPath();\nfor (let i = 0; i < n; i++) {\n  const p = pt(chacha[i], i);\n  i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);\n}\nctx.closePath();\nctx.fillStyle = 'rgba(224, 122, 95, 0.12)';\nctx.fill();\nctx.strokeStyle = '#e07a5f';\nctx.lineWidth = 2;\nctx.stroke();\nfor (let i = 0; i < n; i++) {\n  const p = pt(chacha[i], i);\n  ctx.beginPath();\n  ctx.arc(p.x, p.y, 4.5, 0, Math.PI * 2);\n  ctx.fillStyle = '#e07a5f';\n  ctx.fill();\n  ctx.strokeStyle = '#f7f4ef';\n  ctx.lineWidth = 1.5;\n  ctx.stroke();\n}\n\n// imeime area\nctx.beginPath();\nfor (let i = 0; i < n; i++) {\n  const p = pt(imeime[i], i);\n  i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);\n}\nctx.closePath();\nctx.fillStyle = 'rgba(61, 158, 135, 0.15)';\nctx.fill();\nctx.strokeStyle = '#3d9e87';\nctx.lineWidth = 2;\nctx.stroke();\nfor (let i = 0; i < n; i++) {\n  const p = pt(imeime[i], i);\n  ctx.beginPath();\n  ctx.arc(p.x, p.y, 4.5, 0, Math.PI * 2);\n  ctx.fillStyle = '#3d9e87';\n  ctx.fill();\n  ctx.strokeStyle = '#f7f4ef';\n  ctx.lineWidth = 1.5;\n  ctx.stroke();\n}\n\n// Labels\nconst PAD = 26;\nctx.font = '500 12px Helvetica Neue, Arial, sans-serif';\nfor (let i = 0; i < n; i++) {\n  const a = angleOf(i);\n  const x = cx + (R + PAD) * Math.cos(a);\n  const y = cy + (R + PAD) * Math.sin(a);\n  ctx.fillStyle = '#5a5750';\n  ctx.textAlign = Math.cos(a) > 0.1 ? 'left' : Math.cos(a) < -0.1 ? 'right' : 'center';\n  ctx.textBaseline = Math.sin(a) > 0.1 ? 'top' : Math.sin(a) < -0.1 ? 'bottom' : 'middle';\n  ctx.fillText(dims[i], x, y);\n}\n\n// Center dot\nctx.beginPath();\nctx.arc(cx, cy, 3, 0, Math.PI * 2);\nctx.fillStyle = '#d8d3ca';\nctx.fill();\n<\/script>\n\n<script>\n(function(){\n  function sendHeight(){\n    var h = Math.max(\n      document.body ? document.body.scrollHeight : 0,\n      document.documentElement ? document.documentElement.scrollHeight : 0\n    );\n    parent.postMessage({type:'report-frame-height', id: window.frameElement ? window.frameElement.dataset.frameId : '', height:h}, '*');\n  }\n  window.addEventListener('load', function(){ setTimeout(sendHeight, 80); setTimeout(sendHeight, 500); });\n  window.addEventListener('resize', sendHeight);\n  if ('ResizeObserver' in window) {\n    var ro = new ResizeObserver(function(){ sendHeight(); });\n    window.addEventListener('load', function(){\n      if (document.body) ro.observe(document.body);\n      if (document.documentElement) ro.observe(document.documentElement);\n    });\n  } else {\n    setInterval(sendHeight, 800);\n  }\n})();\n<\/script>\n\n</body>\n</html>\n"}];
-const toc = document.getElementById('toc');
-const sectionsRoot = document.getElementById('sections');
+function ecoShowPanel(name, tag, body) {
+  document.getElementById('panel-name').textContent = name;
+  document.getElementById('panel-tag').textContent = tag;
+  document.getElementById('panel-body').textContent = body;
+  document.getElementById('panel').classList.add('open');
+}
+function ecoClosePanel() {
+  document.getElementById('panel').classList.remove('open');
+}
+document.addEventListener('keydown', e => { if(e.key === 'Escape') ecoClosePanel(); });
 
-REPORT_SECTIONS.forEach((section, index) => {
-  const link = document.createElement('a');
-  link.href = '#' + section.id;
-  link.textContent = String(index + 1).padStart(2, '0') + ' · ' + section.title;
-  toc.appendChild(link);
+// ── Page navigation ──
+function switchPage(id) {
+  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tn-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  if (id === 'compete' || id === 'brand') {
+    requestAnimationFrame(() => drawRadars());
+  }
+  // Close eco panel when leaving ecosystem page
+  if (id !== 'eco') ecoClosePanel();
+}
 
-  const shell = document.createElement('section');
-  shell.className = 'section-shell';
-  shell.id = section.id;
-  shell.innerHTML = `
-    <div class="section-head">
-      <div>
-        <div class="section-kicker">Section ${String(index + 1).padStart(2, '0')}</div>
-        <h2 class="section-title">${section.title}</h2>
-        <div class="section-desc">${section.desc}</div>
-      </div>
-      <div class="open-source">保留原始 HTML 版型與互動</div>
-    </div>
-    <div class="frame-card"><iframe class="report-frame" title="${section.title}" data-frame-id="${section.id}"></iframe></div>
-  `;
-  sectionsRoot.appendChild(shell);
-  const iframe = shell.querySelector('iframe');
-  iframe.srcdoc = section.html;
+// ── Ecosystem panel ──
+function ecoShowPanel(name, tag, body) {
+  document.getElementById('eco-panel-name').textContent = name;
+  document.getElementById('eco-panel-tag').textContent = tag;
+  document.getElementById('eco-panel-body').textContent = body;
+  document.getElementById('eco-panel').classList.add('open');
+}
+function ecoClosePanel() {
+  const p = document.getElementById('eco-panel');
+  if (p) p.classList.remove('open');
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') ecoClosePanel(); });
+
+// ── Brand sub-navigation ──
+function switchBrand(id) {
+  document.querySelectorAll('.brand-subsection').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.bsn-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('brand-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  if (id === 'compare') {
+    requestAnimationFrame(() => drawSmallRadar());
+  }
+}
+
+// ── Radar drawing ──
+const dims = ['品牌知名度', '品牌陣容深度', '國際大廠代理', '社群聲量'];
+const imeimeScores = [6, 7, 4, 4];
+const chachaScores = [8, 8, 9, 8];
+const MAX = 10;
+const n = dims.length;
+
+function angleOf(i) {
+  return (Math.PI * 2 * i / n) - Math.PI / 2;
+}
+
+function drawRadar(canvasId, R, fontSize) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const cx = W / 2, cy = H / 2;
+
+  ctx.clearRect(0, 0, W, H);
+
+  function pt(val, i) {
+    const a = angleOf(i);
+    const r = (val / MAX) * R;
+    return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) };
+  }
+
+  // Grid
+  const levels = 5;
+  for (let lv = 1; lv <= levels; lv++) {
+    const r = (lv / levels) * R;
+    ctx.beginPath();
+    for (let i = 0; i < n; i++) {
+      const a = angleOf(i);
+      i === 0 ? ctx.moveTo(cx + r * Math.cos(a), cy + r * Math.sin(a))
+              : ctx.lineTo(cx + r * Math.cos(a), cy + r * Math.sin(a));
+    }
+    ctx.closePath();
+    ctx.strokeStyle = lv === levels ? '#d8d3ca' : '#ede9e2';
+    ctx.lineWidth = lv === levels ? 1 : 0.5;
+    ctx.stroke();
+    if (lv % 2 === 0) {
+      ctx.fillStyle = '#9a9690';
+      ctx.font = `${fontSize - 3}px DM Sans, Helvetica Neue, sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.fillText(lv * 2, cx + 4, cy - r + fontSize - 1);
+    }
+  }
+
+  // Spokes
+  for (let i = 0; i < n; i++) {
+    const a = angleOf(i);
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + R * Math.cos(a), cy + R * Math.sin(a));
+    ctx.strokeStyle = '#d8d3ca';
+    ctx.lineWidth = 0.5;
+    ctx.stroke();
+  }
+
+  // CHA CHA
+  ctx.beginPath();
+  for (let i = 0; i < n; i++) {
+    const p = pt(chachaScores[i], i);
+    i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
+  }
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(224, 122, 95, 0.12)';
+  ctx.fill();
+  ctx.strokeStyle = '#e07a5f';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+  for (let i = 0; i < n; i++) {
+    const p = pt(chachaScores[i], i);
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, 4, 0, Math.PI * 2);
+    ctx.fillStyle = '#e07a5f';
+    ctx.fill();
+    ctx.strokeStyle = 'white';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+  }
+
+  // imeime
+  ctx.beginPath();
+  for (let i = 0; i < n; i++) {
+    const p = pt(imeimeScores[i], i);
+    i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
+  }
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(61, 158, 135, 0.15)';
+  ctx.fill();
+  ctx.strokeStyle = '#3d9e87';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+  for (let i = 0; i < n; i++) {
+    const p = pt(imeimeScores[i], i);
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, 4, 0, Math.PI * 2);
+    ctx.fillStyle = '#3d9e87';
+    ctx.fill();
+    ctx.strokeStyle = 'white';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+  }
+
+  // Labels
+  const PAD = fontSize + 12;
+  ctx.font = `500 ${fontSize}px DM Sans, Helvetica Neue, sans-serif`;
+  for (let i = 0; i < n; i++) {
+    const a = angleOf(i);
+    const x = cx + (R + PAD) * Math.cos(a);
+    const y = cy + (R + PAD) * Math.sin(a);
+    ctx.fillStyle = '#5a5750';
+    ctx.textAlign = Math.cos(a) > 0.1 ? 'left' : Math.cos(a) < -0.1 ? 'right' : 'center';
+    ctx.textBaseline = Math.sin(a) > 0.1 ? 'top' : Math.sin(a) < -0.1 ? 'bottom' : 'middle';
+    ctx.fillText(dims[i], x, y);
+  }
+
+  // Center dot
+  ctx.beginPath();
+  ctx.arc(cx, cy, 3, 0, Math.PI * 2);
+  ctx.fillStyle = '#d8d3ca';
+  ctx.fill();
+}
+
+function drawSmallRadar() { drawRadar('radarCanvas', 110, 11); }
+function drawBigRadar() { drawRadar('radarBig', 170, 12); }
+function drawRadars() { drawSmallRadar(); drawBigRadar(); }
+
+// Initial draw after page load
+window.addEventListener('load', () => {
+  // Big radar draws when user clicks tab 03
 });
-
-window.addEventListener('message', function(event) {
-  const data = event.data || {};
-  if (data.type !== 'report-frame-height' || !data.id) return;
-  const frame = document.querySelector(`iframe[data-frame-id="${data.id}"]`);
-  if (frame && data.height) frame.style.height = Math.max(640, data.height + 10) + 'px';
-});
-
-const navLinks = Array.from(document.querySelectorAll('.toc a'));
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) return;
-    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id));
-  });
-}, { rootMargin: '-25% 0px -65% 0px', threshold: 0.01 });
-document.querySelectorAll('.section-shell').forEach(sec => observer.observe(sec));
-if (navLinks[0]) navLinks[0].classList.add('active');
 </script>
 </body>
 </html>
